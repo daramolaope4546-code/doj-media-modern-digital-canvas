@@ -32,12 +32,13 @@ export function SiteNav() {
         scrolled ? "border-b border-border/60 bg-background/80 backdrop-blur-xl" : "bg-transparent"
       }`}
     >
-      <div className="mx-auto grid max-w-7xl grid-cols-[minmax(0,1fr)_auto] items-center gap-4 px-6 py-4 lg:px-10">
-        <Link to="/" className="flex min-w-0 items-center">
+      <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-6 py-4 lg:px-10">
+        <Link to="/" className="flex min-w-0 shrink items-center">
           <DojLogo size={40} showText />
         </Link>
 
-        <nav className="hidden items-center gap-7 lg:flex lg:justify-self-center xl:gap-8">
+        <nav className="hidden items-center gap-7 lg:flex xl:gap-8">
+
           {NAV.map((n) => (
             <Link
               key={n.to}
