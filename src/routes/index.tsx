@@ -48,7 +48,7 @@ function HomePage() {
         <div className="pointer-events-none absolute -right-40 top-1/3 h-[28rem] w-[28rem] rounded-full bg-wine-glow/15 blur-3xl animate-float-slow" style={{ animationDelay: "2s" }} />
 
         <div className="relative mx-auto grid max-w-7xl items-center gap-12 px-6 sm:gap-14 md:grid-cols-2 lg:px-10">
-          <div className="order-1">
+          <div className="order-2 md:order-1">
             <motion.div
               initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 2.6, duration: 0.6 }}
               className="mb-6 inline-flex items-center gap-2 rounded-full border border-wine/30 bg-wine/5 px-4 py-1.5 text-xs font-medium uppercase tracking-widest text-wine"
@@ -141,7 +141,7 @@ function HomePage() {
 
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 2.9, duration: 0.9 }}
-            className="relative order-2 mx-auto w-full max-w-sm md:max-w-none"
+            className="relative order-1 mx-auto md:order-2 w-full max-w-sm md:max-w-none"
           >
             <div className="pointer-events-none absolute -inset-6 rounded-[3rem] bg-gradient-to-br from-wine/25 to-wine-glow/10 blur-3xl" />
             <div className="pointer-events-none absolute -right-4 -top-4 hidden h-28 w-28 rounded-full border-2 border-wine/30 sm:block" />
