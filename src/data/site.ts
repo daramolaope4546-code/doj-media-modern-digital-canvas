@@ -185,12 +185,12 @@ export const experience: {
 
 /** Replace the placeholders below with your real contact details. */
 export const contact = {
-  phone: "[YOUR PHONE NUMBER]",
-  whatsapp: "[YOUR WHATSAPP NUMBER]",
-  email: "[YOUR EMAIL]",
-  location: "[YOUR CITY, NIGERIA]",
-  linkedin: "[YOUR LINKEDIN URL]",
-  github: "[YOUR GITHUB URL]",
+  phone: "+234 704 484 0304",
+  whatsapp: "+234 704 484 0304",
+  email: "dojmedia1331@gmail.com",
+  location: "Ile-Oluji, Ondo State, Nigeria",
+  linkedin: "https://www.linkedin.com/in/opeyemi-daramola-512918315",
+  github: "https://github.com/daramolaope4546-code",
   instagram: "[YOUR INSTAGRAM URL]",
   facebook: "[YOUR FACEBOOK URL]",
 };
