@@ -8,17 +8,17 @@
 
 export const profile = {
   brand: "DOJ MEDIA",
-  name: "[YOUR FULL NAME]",
+  name: "Opeyemi John Daramola",
   title: "Creative Digital Media & Production Specialist",
   tagline: "Create. Connect. Impact.",
   intro:
     "I design, produce, and broadcast creative work for brands, creators, churches, and organizations — combining graphics design, web design, video editing, motion design, and professional live streaming under one roof.",
   bio: [
-    "I am a creative digital media professional working under the DOJ MEDIA brand. My work spans visual design, digital production, and live broadcast — helping clients present their message clearly and beautifully across every screen.",
-    "I enjoy taking an idea from a rough brief to a finished, polished deliverable: a brand identity, a responsive website, an edited film, a motion graphic, or a fully directed multi-camera live stream.",
+    "I am DojMedia (Opeyemi John D), a passionate Media Specialist from Ondo State, Nigeria. I am dedicated to using creativity and technology to bring ideas to life through graphics design, web design, video editing, motion design, live streaming, and digital media solutions.",
+    "I am constantly learning, improving my skills, and exploring new technologies to create impactful digital experiences for individuals, brands, and organizations. Through DOJ MEDIA, my goal is to deliver creative, professional, and innovative media solutions that communicate ideas effectively and make a lasting impression.",
   ],
   education: "[YOUR DEGREE / PROGRAMME], [YOUR SCHOOL]",
-  location: "[YOUR CITY, NIGERIA]",
+  location: "Ile-Oluji, Ondo State, Nigeria",
   interests: [
     "Creative direction and brand storytelling",
     "Video post-production and motion design",
@@ -26,9 +26,8 @@ export const profile = {
     "Web design and digital experiences",
   ],
   goals: [
-    "Grow DOJ MEDIA into a full-service creative and production studio",
-    "Deliver consistently premium work for clients across Nigeria and beyond",
-    "Keep expanding technical skills in motion design and live production",
+    "Become a highly skilled Media and Technology Specialist, using creativity and technology to create impactful digital solutions",
+    "Continuously grow my expertise and build a successful career in the digital media industry",
   ],
   strengths: [
     "Strong eye for detail and composition",
@@ -186,12 +185,12 @@ export const experience: {
 
 /** Replace the placeholders below with your real contact details. */
 export const contact = {
-  phone: "[YOUR PHONE NUMBER]",
-  whatsapp: "[YOUR WHATSAPP NUMBER]",
-  email: "[YOUR EMAIL]",
-  location: "[YOUR CITY, NIGERIA]",
-  linkedin: "[YOUR LINKEDIN URL]",
-  github: "[YOUR GITHUB URL]",
+  phone: "+234 704 484 0304",
+  whatsapp: "+234 704 484 0304",
+  email: "dojmedia1331@gmail.com",
+  location: "Ile-Oluji, Ondo State, Nigeria",
+  linkedin: "https://www.linkedin.com/in/opeyemi-daramola-512918315",
+  github: "https://github.com/daramolaope4546-code",
   instagram: "[YOUR INSTAGRAM URL]",
   facebook: "[YOUR FACEBOOK URL]",
 };
