@@ -6,6 +6,9 @@
  * ============================================================
  */
 
+import eboIndependence from "@/assets/ebo-radio-independence.jpg.asset.json";
+import ondoAnniversary from "@/assets/ondo-50th-anniversary.jpg.asset.json";
+
 export const profile = {
   brand: "DOJ MEDIA",
   name: "Opeyemi John Daramola",
