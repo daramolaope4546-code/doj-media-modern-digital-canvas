@@ -1,10 +1,11 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion } from "framer-motion";
-import { ArrowRight, Palette, Monitor, Video, Sparkles, Radio, Camera, Share2 } from "lucide-react";
+import { ArrowRight, Palette, Monitor, Video, Sparkles, Radio, Camera, Share2, Linkedin, Github, Instagram, Facebook, Mail } from "lucide-react";
 import { LogoIntro } from "@/components/LogoIntro";
 import { Reveal, Section } from "@/components/Section";
-import { profile, services, skills } from "@/data/site";
-import heroImage from "@/assets/hero-studio.jpg";
+import { profile, services, skills, contact } from "@/data/site";
+import portrait from "@/assets/opeyemi-portrait.png.asset.json";
+
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -20,7 +21,16 @@ export const Route = createFileRoute("/")({
 
 const icons = { palette: Palette, monitor: Monitor, video: Video, sparkles: Sparkles, radio: Radio, camera: Camera, share: Share2 };
 
+const socials = [
+  { label: "LinkedIn", href: contact.linkedin, Icon: Linkedin },
+  { label: "GitHub", href: contact.github, Icon: Github },
+  { label: "Instagram", href: contact.instagram, Icon: Instagram },
+  { label: "Facebook", href: contact.facebook, Icon: Facebook },
+  { label: "Email", href: `mailto:${contact.email}`, Icon: Mail },
+].filter((s) => s.href && !s.href.includes("["));
+
 function HomePage() {
+
   return (
     <>
       <LogoIntro />
@@ -37,8 +47,8 @@ function HomePage() {
         <div className="pointer-events-none absolute -left-40 top-32 h-96 w-96 rounded-full bg-wine/20 blur-3xl animate-float-slow" />
         <div className="pointer-events-none absolute -right-40 top-1/3 h-[28rem] w-[28rem] rounded-full bg-wine-glow/15 blur-3xl animate-float-slow" style={{ animationDelay: "2s" }} />
 
-        <div className="relative mx-auto grid max-w-7xl items-center gap-14 px-6 lg:grid-cols-2 lg:px-10">
-          <div>
+        <div className="relative mx-auto grid max-w-7xl items-center gap-12 px-6 sm:gap-14 md:grid-cols-2 lg:px-10">
+          <div className="order-2 md:order-1">
             <motion.div
               initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 2.6, duration: 0.6 }}
               className="mb-6 inline-flex items-center gap-2 rounded-full border border-wine/30 bg-wine/5 px-4 py-1.5 text-xs font-medium uppercase tracking-widest text-wine"
@@ -65,8 +75,15 @@ function HomePage() {
             </motion.p>
 
             <motion.p
+              initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 3.05, duration: 0.7 }}
+              className="mt-6 max-w-xl font-display text-2xl font-semibold leading-snug text-foreground sm:text-3xl"
+            >
+              I turn ideas into <span className="italic text-wine">design, film and live experiences</span> people remember.
+            </motion.p>
+
+            <motion.p
               initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 3.1, duration: 0.7 }}
-              className="mt-6 max-w-xl text-base leading-relaxed text-muted-foreground sm:text-lg"
+              className="mt-5 max-w-xl text-base leading-relaxed text-muted-foreground sm:text-lg"
             >
               {profile.intro}
             </motion.p>
@@ -84,7 +101,7 @@ function HomePage() {
 
             <motion.div
               initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 3.4, duration: 0.7 }}
-              className="mt-9 flex flex-wrap gap-4"
+              className="mt-9 flex flex-wrap items-center gap-4"
             >
               <Link
                 to="/portfolio"
@@ -100,22 +117,47 @@ function HomePage() {
                 Contact Me
               </Link>
             </motion.div>
+
+            {socials.length > 0 && (
+              <motion.div
+                initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 3.5, duration: 0.7 }}
+                className="mt-8 flex flex-wrap items-center gap-3"
+              >
+                {socials.map(({ label, href, Icon }) => (
+                  <a
+                    key={label}
+                    href={href}
+                    target={href.startsWith("mailto:") ? undefined : "_blank"}
+                    rel="noreferrer"
+                    aria-label={label}
+                    className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-border bg-card text-foreground/70 transition hover:-translate-y-0.5 hover:border-wine hover:bg-wine hover:text-white"
+                  >
+                    <Icon size={18} />
+                  </a>
+                ))}
+              </motion.div>
+            )}
           </div>
 
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 2.9, duration: 0.9 }}
-            className="relative"
+            className="relative order-1 mx-auto md:order-2 w-full max-w-sm md:max-w-none"
           >
-            <div className="absolute -inset-4 rounded-[2.5rem] bg-gradient-to-br from-wine/20 to-wine-glow/10 blur-2xl" />
-            <img
-              src={heroImage}
-              alt="Creative production studio workspace with editing monitors, camera and streaming equipment"
-              width={1200}
-              height={1400}
-              className="relative aspect-[4/5] w-full rounded-[2rem] border border-border object-cover shadow-2xl shadow-wine/20"
-            />
+            <div className="pointer-events-none absolute -inset-6 rounded-[3rem] bg-gradient-to-br from-wine/25 to-wine-glow/10 blur-3xl" />
+            <div className="pointer-events-none absolute -right-4 -top-4 hidden h-28 w-28 rounded-full border-2 border-wine/30 sm:block" />
+            <div className="pointer-events-none absolute -bottom-5 -left-5 hidden h-32 w-32 rounded-[2rem] bg-wine/10 sm:block" />
+            <div className="relative rounded-[2.25rem] border border-wine/20 bg-card p-2 shadow-2xl shadow-wine/20 ring-1 ring-wine/10">
+              <img
+                src={portrait.url}
+                alt="Opeyemi John Daramola, DOJ MEDIA creative digital media and production specialist"
+                width={884}
+                height={1200}
+                className="aspect-[4/5] w-full rounded-[1.85rem] object-cover object-top"
+              />
+            </div>
           </motion.div>
         </div>
+
       </section>
 
       <Section
