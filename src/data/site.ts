@@ -117,8 +117,25 @@ export const projects: {
   link?: string;
   hue: number;
 }[] = [
+  {
+    title: "Nigeria Independence Day Celebration Campaign – EBO Radio",
+    category: "Graphics Design",
+    description:
+      "A patriotic Independence Day creative designed for Ever Bright Oijefon Radio 102.1 FM to commemorate Nigeria's Independence Day. The design combines Nigerian visual elements, the EBO Radio brand identity, and a clean celebratory composition to communicate national pride and strengthen audience engagement.",
+    image: eboIndependence.url,
+    hue: 140,
+  },
+  {
+    title: "Ondo State 50th Anniversary Commemorative Campaign",
+    category: "Graphics Design",
+    description:
+      "A premium commemorative design created to celebrate the 50th Anniversary of Ondo State (1976–2026). The project combines anniversary branding, photography, typography, colour, and congratulatory messaging to create a professional and dignified public communication piece.",
+    image: ondoAnniversary.url,
+    hue: 30,
+  },
   { title: "Event Poster Series", category: "Graphics Design", description: "A set of bold event posters with a consistent typographic system.", hue: 15 },
   { title: "Brand Identity Kit", category: "Graphics Design", description: "Logo, colour palette, and social templates for a growing brand.", hue: 340 },
+
   { title: "Business Website", category: "Web Design", description: "Responsive marketing site with a clean, conversion-focused layout.", hue: 220 },
   { title: "Portfolio Landing Page", category: "Web Design", description: "A minimal one-page site built for speed and clarity.", hue: 200 },
   { title: "Event Highlight Film", category: "Video Editing", description: "Cinematic recap edit with colour grading and sound design.", hue: 25 },
