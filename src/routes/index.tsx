@@ -21,7 +21,16 @@ export const Route = createFileRoute("/")({
 
 const icons = { palette: Palette, monitor: Monitor, video: Video, sparkles: Sparkles, radio: Radio, camera: Camera, share: Share2 };
 
+const socials = [
+  { label: "LinkedIn", href: contact.linkedin, Icon: Linkedin },
+  { label: "GitHub", href: contact.github, Icon: Github },
+  { label: "Instagram", href: contact.instagram, Icon: Instagram },
+  { label: "Facebook", href: contact.facebook, Icon: Facebook },
+  { label: "Email", href: `mailto:${contact.email}`, Icon: Mail },
+].filter((s) => s.href && !s.href.includes("["));
+
 function HomePage() {
+
   return (
     <>
       <LogoIntro />
