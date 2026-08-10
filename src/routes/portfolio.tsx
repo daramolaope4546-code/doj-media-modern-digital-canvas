@@ -107,10 +107,11 @@ function PortfolioPage() {
             <motion.div
               initial={{ scale: 0.94, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} exit={{ scale: 0.94, opacity: 0 }}
               onClick={(e) => e.stopPropagation()}
-              className="relative w-full max-w-3xl overflow-hidden rounded-3xl bg-card"
+              className="relative max-h-[90vh] w-full max-w-3xl overflow-y-auto rounded-3xl bg-card"
             >
               {active.image ? (
-                <img src={active.image} alt={active.title} className="aspect-video w-full object-cover" />
+                <img src={active.image} alt={active.title} className="max-h-[60vh] w-full bg-muted object-contain" />
+
               ) : (
                 <div className="aspect-video" style={{ background: `linear-gradient(135deg, hsl(${active.hue} 45% 25%), hsl(${active.hue} 60% 45%))` }} />
               )}
