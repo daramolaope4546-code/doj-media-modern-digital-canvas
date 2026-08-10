@@ -63,7 +63,14 @@ function PortfolioPage() {
               >
                 <div className="relative aspect-[4/3] overflow-hidden">
                   {p.image ? (
-                    <img src={p.image} alt={p.title} loading="lazy" className="h-full w-full object-cover transition duration-700 group-hover:scale-110" />
+                    <>
+                      <div
+                        aria-hidden
+                        className="absolute inset-0 scale-110 bg-cover bg-center blur-2xl opacity-40"
+                        style={{ backgroundImage: `url(${p.image})` }}
+                      />
+                      <img src={p.image} alt={p.title} loading="lazy" className="relative h-full w-full object-contain transition duration-700 group-hover:scale-105" />
+                    </>
                   ) : (
                     <div
                       className="h-full w-full transition duration-700 group-hover:scale-110"
@@ -100,10 +107,11 @@ function PortfolioPage() {
             <motion.div
               initial={{ scale: 0.94, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} exit={{ scale: 0.94, opacity: 0 }}
               onClick={(e) => e.stopPropagation()}
-              className="relative w-full max-w-3xl overflow-hidden rounded-3xl bg-card"
+              className="relative max-h-[90vh] w-full max-w-3xl overflow-y-auto rounded-3xl bg-card"
             >
               {active.image ? (
-                <img src={active.image} alt={active.title} className="aspect-video w-full object-cover" />
+                <img src={active.image} alt={active.title} className="max-h-[60vh] w-full bg-muted object-contain" />
+
               ) : (
                 <div className="aspect-video" style={{ background: `linear-gradient(135deg, hsl(${active.hue} 45% 25%), hsl(${active.hue} 60% 45%))` }} />
               )}
