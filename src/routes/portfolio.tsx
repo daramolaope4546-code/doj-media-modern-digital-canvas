@@ -63,7 +63,14 @@ function PortfolioPage() {
               >
                 <div className="relative aspect-[4/3] overflow-hidden">
                   {p.image ? (
-                    <img src={p.image} alt={p.title} loading="lazy" className="h-full w-full object-cover transition duration-700 group-hover:scale-110" />
+                    <>
+                      <div
+                        aria-hidden
+                        className="absolute inset-0 scale-110 bg-cover bg-center blur-2xl opacity-40"
+                        style={{ backgroundImage: `url(${p.image})` }}
+                      />
+                      <img src={p.image} alt={p.title} loading="lazy" className="relative h-full w-full object-contain transition duration-700 group-hover:scale-105" />
+                    </>
                   ) : (
                     <div
                       className="h-full w-full transition duration-700 group-hover:scale-110"
