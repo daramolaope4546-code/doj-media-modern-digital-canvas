@@ -6,8 +6,8 @@
  * ============================================================
  */
 
-import eboIndependence from "@/assets/ebo-radio-independence.jpg.asset.json";
-import ondoAnniversary from "@/assets/ondo-50th-anniversary.jpg.asset.json";
+import eboIndependence from "@/assets/ebo-radio-independence.jpg";
+import ondoAnniversary from "@/assets/ondo-50th-anniversary.jpg";
 
 export const profile = {
   brand: "DOJ MEDIA",
@@ -125,7 +125,7 @@ export const projects: {
     category: "Graphics Design",
     description:
       "A patriotic Independence Day creative designed for Ever Bright Oijefon Radio 102.1 FM to commemorate Nigeria's Independence Day. The design combines Nigerian visual elements, the EBO Radio brand identity, and a clean celebratory composition to communicate national pride and strengthen audience engagement.",
-    image: eboIndependence.url,
+    image: eboIndependence,
     hue: 140,
   },
   {
@@ -133,7 +133,7 @@ export const projects: {
     category: "Graphics Design",
     description:
       "A premium commemorative design created to celebrate the 50th Anniversary of Ondo State (1976–2026). The project combines anniversary branding, photography, typography, colour, and congratulatory messaging to create a professional and dignified public communication piece.",
-    image: ondoAnniversary.url,
+    image: ondoAnniversary,
     hue: 30,
   },
   { title: "Event Poster Series", category: "Graphics Design", description: "A set of bold event posters with a consistent typographic system.", hue: 15 },

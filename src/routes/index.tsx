@@ -4,7 +4,7 @@ import { ArrowRight, Palette, Monitor, Video, Sparkles, Radio, Camera, Share2, L
 import { LogoIntro } from "@/components/LogoIntro";
 import { Reveal, Section } from "@/components/Section";
 import { profile, services, skills, contact } from "@/data/site";
-import portrait from "@/assets/opeyemi-portrait.png.asset.json";
+import portrait from "@/assets/opeyemi-portrait.png";
 
 
 export const Route = createFileRoute("/")({
@@ -151,7 +151,7 @@ function HomePage() {
             <div className="pointer-events-none absolute -bottom-5 -left-5 hidden h-32 w-32 rounded-[2rem] bg-wine/10 sm:block" />
             <div className="relative rounded-[2.25rem] border border-wine/20 bg-card p-2 shadow-2xl shadow-wine/20 ring-1 ring-wine/10">
               <img
-                src={portrait.url}
+                src={portrait}
                 alt="Opeyemi John Daramola, DOJ MEDIA creative digital media and production specialist"
                 width={884}
                 height={1200}
