@@ -58,7 +58,7 @@ export function DojLogo({ size = 44, className = "", showText = false, textColor
             DOJ <span style={{ color: "var(--wine)" }}>MEDIA</span>
           </span>
           <span className="mt-0.5 text-[10px] uppercase tracking-[0.25em] text-muted-foreground">
-            Create · Connect · Impact
+            Create. Connect. Impact.
           </span>
         </div>
       )}

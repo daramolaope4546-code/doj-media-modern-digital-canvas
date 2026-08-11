@@ -15,7 +15,7 @@ export const profile = {
   title: "Creative Digital Media & Production Specialist",
   tagline: "Create. Connect. Impact.",
   intro:
-    "I design, produce, and broadcast creative work for brands, creators, churches, and organizations — combining graphics design, web design, video editing, motion design, and professional live streaming under one roof.",
+    "I design, produce, and broadcast creative work for brands, creators, churches, and organizations, combining graphics design, web design, video editing, motion design, and professional live streaming under one roof.",
   bio: [
     "I am DojMedia (Opeyemi John D), a passionate Media Specialist from Ondo State, Nigeria. I am dedicated to using creativity and technology to bring ideas to life through graphics design, web design, video editing, motion design, live streaming, and digital media solutions.",
     "I am constantly learning, improving my skills, and exploring new technologies to create impactful digital experiences for individuals, brands, and organizations. Through DOJ MEDIA, my goal is to deliver creative, professional, and innovative media solutions that communicate ideas effectively and make a lasting impression.",
@@ -111,7 +111,7 @@ export const projectCategories = [
   "Live Streaming",
 ] as const;
 
-/** Add new projects here — they appear automatically in the gallery. */
+/** Add new projects here: they appear automatically in the gallery. */
 export const projects: {
   title: string;
   category: Exclude<(typeof projectCategories)[number], "All">;
@@ -121,7 +121,7 @@ export const projects: {
   hue: number;
 }[] = [
   {
-    title: "Nigeria Independence Day Celebration Campaign – EBO Radio",
+    title: "Nigeria Independence Day Celebration Campaign | EBO Radio",
     category: "Graphics Design",
     description:
       "A patriotic Independence Day creative designed for Ever Bright Oijefon Radio 102.1 FM to commemorate Nigeria's Independence Day. The design combines Nigerian visual elements, the EBO Radio brand identity, and a clean celebratory composition to communicate national pride and strengthen audience engagement.",
@@ -174,7 +174,7 @@ export const experience: {
   {
     group: "Freelance Projects",
     items: [
-      { role: "Freelance Creative — DOJ MEDIA", org: "Independent", period: "[YEAR – Present]", desc: "Design, video editing, motion graphics, and live streaming for clients across multiple industries." },
+      { role: "Freelance Creative | DOJ MEDIA", org: "Independent", period: "[YEAR – Present]", desc: "Design, video editing, motion graphics, and live streaming for clients across multiple industries." },
     ],
   },
   {

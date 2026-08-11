@@ -20,7 +20,7 @@ export function SiteFooter() {
             <p className="mt-5 text-sm font-semibold text-foreground">{profile.name}</p>
             <p className="text-xs uppercase tracking-widest text-wine">{profile.title}</p>
             <p className="mt-4 max-w-sm text-sm leading-relaxed text-muted-foreground">
-              Design, video, motion, and professional live production — crafted with a premium finish.
+              Design, video, motion, and professional live production, crafted with a premium finish.
             </p>
           </div>
 

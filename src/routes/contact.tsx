@@ -7,9 +7,9 @@ import { contact } from "@/data/site";
 export const Route = createFileRoute("/contact")({
   head: () => ({
     meta: [
-      { title: "Contact — DOJ MEDIA" },
+      { title: "Contact | DOJ MEDIA" },
       { name: "description", content: "Get in touch for graphics design, web design, video editing, motion design or live streaming projects." },
-      { property: "og:title", content: "Contact — DOJ MEDIA" },
+      { property: "og:title", content: "Contact | DOJ MEDIA" },
       { property: "og:description", content: "Send a message to start a design, video, motion or live streaming project." },
       { property: "og:image", content: "https://dojmedia.lovable.app/og-image.jpg" },
       { name: "twitter:image", content: "https://dojmedia.lovable.app/og-image.jpg" },
@@ -79,7 +79,7 @@ function ContactPage() {
                 {sent ? <>Message sent <Check size={16} /></> : <>Send Message <Send size={14} /></>}
               </button>
               {sent && (
-                <p className="text-xs text-muted-foreground">Thanks — your message has been received.</p>
+                <p className="text-xs text-muted-foreground">Thanks, your message has been received.</p>
               )}
             </form>
           </Reveal>

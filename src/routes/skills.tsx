@@ -6,9 +6,9 @@ import { skills } from "@/data/site";
 export const Route = createFileRoute("/skills")({
   head: () => ({
     meta: [
-      { title: "Skills — DOJ MEDIA" },
+      { title: "Skills | DOJ MEDIA" },
       { name: "description", content: "Technical and creative skills: graphics design, web design, video editing, motion design, live streaming, content creation and digital media." },
-      { property: "og:title", content: "Skills — DOJ MEDIA" },
+      { property: "og:title", content: "Skills | DOJ MEDIA" },
       { property: "og:description", content: "Creative and technical skill set across design, video, motion and live production." },
       { property: "og:image", content: "https://dojmedia.lovable.app/og-image.jpg" },
       { name: "twitter:image", content: "https://dojmedia.lovable.app/og-image.jpg" },

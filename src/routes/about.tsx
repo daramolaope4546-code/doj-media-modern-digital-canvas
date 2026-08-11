@@ -6,9 +6,9 @@ import { profile } from "@/data/site";
 export const Route = createFileRoute("/about")({
   head: () => ({
     meta: [
-      { title: "About Me — DOJ MEDIA" },
+      { title: "About Me | DOJ MEDIA" },
       { name: "description", content: "Get to know the creative behind DOJ MEDIA: biography, education, location, career interests, goals, strengths and skills." },
-      { property: "og:title", content: "About Me — DOJ MEDIA" },
+      { property: "og:title", content: "About Me | DOJ MEDIA" },
       { property: "og:description", content: "Biography, education, interests, goals and strengths of the creative behind DOJ MEDIA." },
       { property: "og:image", content: "https://dojmedia.lovable.app/og-image.jpg" },
       { name: "twitter:image", content: "https://dojmedia.lovable.app/og-image.jpg" },
