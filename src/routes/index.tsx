@@ -14,6 +14,8 @@ export const Route = createFileRoute("/")({
       { name: "description", content: "Portfolio of a creative digital media professional: graphics design, web design, video editing, motion design and professional live streaming." },
       { property: "og:title", content: `${profile.brand} — Creative Digital Media Portfolio` },
       { property: "og:description", content: "Design, video, motion and live production work by DOJ MEDIA." },
+      { property: "og:image", content: "https://dojmedia.lovable.app/og-image.jpg" },
+      { name: "twitter:image", content: "https://dojmedia.lovable.app/og-image.jpg" },
     ],
   }),
   component: HomePage,

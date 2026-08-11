@@ -10,6 +10,8 @@ export const Route = createFileRoute("/experience")({
       { name: "description", content: "Work experience, freelance projects, internships, volunteer work, education, training and certifications." },
       { property: "og:title", content: "Experience — DOJ MEDIA" },
       { property: "og:description", content: "A timeline of professional, freelance, volunteer and educational experience." },
+      { property: "og:image", content: "https://dojmedia.lovable.app/og-image.jpg" },
+      { name: "twitter:image", content: "https://dojmedia.lovable.app/og-image.jpg" },
     ],
   }),
   component: ExperiencePage,

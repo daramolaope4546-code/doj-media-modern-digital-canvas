@@ -11,6 +11,8 @@ export const Route = createFileRoute("/contact")({
       { name: "description", content: "Get in touch for graphics design, web design, video editing, motion design or live streaming projects." },
       { property: "og:title", content: "Contact — DOJ MEDIA" },
       { property: "og:description", content: "Send a message to start a design, video, motion or live streaming project." },
+      { property: "og:image", content: "https://dojmedia.lovable.app/og-image.jpg" },
+      { name: "twitter:image", content: "https://dojmedia.lovable.app/og-image.jpg" },
     ],
   }),
   component: ContactPage,
