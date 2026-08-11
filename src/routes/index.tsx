@@ -166,7 +166,7 @@ function HomePage() {
       <Section
         eyebrow="What I Do"
         title={<>Creative services, <span className="italic text-wine">end to end</span>.</>}
-        subtitle="From first concept to final broadcast — a complete creative toolkit under one brand."
+        subtitle="From first concept to final broadcast: a complete creative toolkit under one brand."
       >
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {services.slice(0, 6).map((s, i) => {
@@ -202,7 +202,7 @@ function HomePage() {
               Let's create something<br /><span className="italic">worth watching.</span>
             </h2>
             <p className="relative mx-auto mt-5 max-w-xl text-white/80">
-              Tell me about your project — design, video, motion, or a live production.
+              Tell me about your project: design, video, motion, or a live production.
             </p>
             <div className="relative mt-9 flex flex-wrap justify-center gap-4">
               <Link to="/contact" className="rounded-full bg-white px-7 py-3.5 text-sm font-semibold text-wine shadow-xl transition hover:-translate-y-0.5">

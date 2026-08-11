@@ -36,7 +36,7 @@ export function LogoIntro() {
                 DOJ <span style={{ color: "var(--wine)" }}>MEDIA</span>
               </h1>
               <p className="mt-2 text-xs uppercase tracking-[0.35em] text-muted-foreground">
-                Create · Connect · Impact
+                Create. Connect. Impact.
               </p>
             </motion.div>
           </div>

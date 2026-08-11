@@ -8,9 +8,9 @@ import { projectCategories, projects } from "@/data/site";
 export const Route = createFileRoute("/portfolio")({
   head: () => ({
     meta: [
-      { title: "Portfolio — DOJ MEDIA" },
+      { title: "Portfolio | DOJ MEDIA" },
       { name: "description", content: "Selected creative projects across graphics design, web design, video editing, motion design and live streaming." },
-      { property: "og:title", content: "Portfolio — DOJ MEDIA" },
+      { property: "og:title", content: "Portfolio | DOJ MEDIA" },
       { property: "og:description", content: "A gallery of design, video, motion and live production projects." },
       { property: "og:image", content: "https://dojmedia.lovable.app/og-image.jpg" },
       { name: "twitter:image", content: "https://dojmedia.lovable.app/og-image.jpg" },
