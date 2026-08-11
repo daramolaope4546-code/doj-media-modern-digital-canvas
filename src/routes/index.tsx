@@ -10,10 +10,11 @@ import portrait from "@/assets/opeyemi-portrait.png.asset.json";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: `${profile.brand} — ${profile.title} Portfolio` },
-      { name: "description", content: "Portfolio of a creative digital media professional: graphics design, web design, video editing, motion design and professional live streaming." },
-      { property: "og:title", content: `${profile.brand} — Creative Digital Media Portfolio` },
-      { property: "og:description", content: "Design, video, motion and live production work by DOJ MEDIA." },
+      { title: "DOJ MEDIA | Creative Digital Solutions" },
+      { name: "description", content: "Professional graphic design, web design, video editing, motion design, live streaming and digital creative solutions by DOJ MEDIA." },
+      { property: "og:title", content: "DOJ MEDIA | Creative Digital Solutions" },
+      { property: "og:description", content: "Professional graphic design, web design, video editing, motion design, live streaming and digital creative solutions by DOJ MEDIA." },
+
       { property: "og:image", content: "https://dojmedia.lovable.app/og-image.jpg" },
       { name: "twitter:image", content: "https://dojmedia.lovable.app/og-image.jpg" },
     ],
