@@ -10,6 +10,8 @@ export const Route = createFileRoute("/services")({
       { name: "description", content: "Graphics design, web design, video editing, motion design, live streaming, live streaming setup and digital media services." },
       { property: "og:title", content: "Services — DOJ MEDIA" },
       { property: "og:description", content: "Creative services: design, web, video, motion, live streaming and digital media." },
+      { property: "og:image", content: "https://dojmedia.lovable.app/og-image.jpg" },
+      { name: "twitter:image", content: "https://dojmedia.lovable.app/og-image.jpg" },
     ],
   }),
   component: ServicesPage,
