@@ -78,7 +78,7 @@ export function SiteNav() {
             Let's Talk
           </Link>
           <button
-            className="rounded-full border border-border p-2 lg:hidden"
+            className={`rounded-full border p-2 lg:hidden ${onDark ? "border-white/30 text-white" : "border-border"}`}
             onClick={() => setOpen(!open)}
             aria-label="Menu"
             aria-expanded={open}
