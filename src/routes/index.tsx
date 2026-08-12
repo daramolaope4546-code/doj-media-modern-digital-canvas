@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion } from "framer-motion";
 import { ArrowRight, Palette, Monitor, Video, Sparkles, Radio, Camera, Share2, Linkedin, Github, Instagram, Facebook, Mail } from "lucide-react";
 import { LogoIntro } from "@/components/LogoIntro";
+import { HeroCinematic } from "@/components/HeroCinematic";
 import { Reveal, Section } from "@/components/Section";
 import { profile, services, skills, contact } from "@/data/site";
 import portrait from "@/assets/opeyemi-portrait.png";
