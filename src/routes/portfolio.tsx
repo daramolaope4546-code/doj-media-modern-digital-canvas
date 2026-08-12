@@ -71,7 +71,7 @@ function PortfolioPage() {
                         className="absolute inset-0 scale-110 bg-cover bg-center blur-2xl opacity-40"
                         style={{ backgroundImage: `url(${p.image})` }}
                       />
-                      <img src={p.image} alt={p.title} loading="lazy" className="relative h-full w-full object-contain transition duration-700 group-hover:scale-105" />
+                      <img src={p.image} alt={p.alt ?? p.title} loading="lazy" className="relative h-full w-full object-contain transition duration-700 group-hover:scale-105" />
                     </>
                   ) : (
                     <div
