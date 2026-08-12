@@ -26,6 +26,8 @@ export function SiteNav() {
     setOpen(false);
   }, [pathname]);
 
+  const onDark = !scrolled && pathname === "/";
+
   return (
     <header
       className={`fixed inset-x-0 top-0 z-50 transition-all duration-500 ${
@@ -34,7 +36,7 @@ export function SiteNav() {
     >
       <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-6 py-4 lg:px-10">
         <Link to="/" className="flex min-w-0 shrink items-center">
-          <DojLogo size={40} showText />
+          <DojLogo size={40} showText textColor={onDark ? "#ffffff" : "currentColor"} />
         </Link>
 
         <nav className="hidden items-center gap-7 lg:flex xl:gap-8">
@@ -44,7 +46,11 @@ export function SiteNav() {
               key={n.to}
               to={n.to}
               activeOptions={{ exact: n.to === "/" }}
-              className="group relative text-sm font-medium text-foreground/75 transition hover:text-foreground data-[status=active]:text-wine"
+              className={`group relative text-sm font-medium transition data-[status=active]:text-wine ${
+                onDark
+                  ? "text-white/80 hover:text-white data-[status=active]:text-white"
+                  : "text-foreground/75 hover:text-foreground"
+              }`}
             >
               {n.label}
               <span className="absolute -bottom-1.5 left-0 h-0.5 w-0 rounded-full bg-wine transition-all duration-300 group-hover:w-full group-data-[status=active]:w-full" />
@@ -56,10 +62,15 @@ export function SiteNav() {
           <button
             aria-label="Toggle theme"
             onClick={() => setDark(!dark)}
-            className="rounded-full border border-border p-2 text-foreground/70 transition hover:border-wine hover:text-wine"
+            className={`rounded-full border p-2 transition hover:border-wine ${
+              onDark
+                ? "border-white/30 text-white/80 hover:text-white"
+                : "border-border text-foreground/70 hover:text-wine"
+            }`}
           >
             {dark ? <Sun size={16} /> : <Moon size={16} />}
           </button>
+
           <Link
             to="/contact"
             className="hidden rounded-full bg-wine px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-wine/20 transition hover:shadow-xl hover:shadow-wine/40 sm:inline-block"
@@ -67,7 +78,7 @@ export function SiteNav() {
             Let's Talk
           </Link>
           <button
-            className="rounded-full border border-border p-2 lg:hidden"
+            className={`rounded-full border p-2 lg:hidden ${onDark ? "border-white/30 text-white" : "border-border"}`}
             onClick={() => setOpen(!open)}
             aria-label="Menu"
             aria-expanded={open}
