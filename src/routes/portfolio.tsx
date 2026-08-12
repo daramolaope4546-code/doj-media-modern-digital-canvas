@@ -121,6 +121,43 @@ function PortfolioPage() {
                 <span className="text-xs font-semibold uppercase tracking-widest text-wine">{active.category}</span>
                 <h3 className="mt-2 font-display text-2xl font-bold text-foreground">{active.title}</h3>
                 <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{active.description}</p>
+
+                {active.services && (
+                  <div className="mt-6">
+                    <h4 className="text-xs font-semibold uppercase tracking-widest text-wine">Services Provided</h4>
+                    <div className="mt-3 flex flex-wrap gap-2">
+                      {active.services.map((s) => (
+                        <span key={s} className="rounded-full border border-border px-3 py-1 text-xs text-foreground/80">{s}</span>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {active.approach && (
+                  <div className="mt-6">
+                    <h4 className="text-xs font-semibold uppercase tracking-widest text-wine">Design Approach</h4>
+                    <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{active.approach}</p>
+                  </div>
+                )}
+
+                {active.tools && (
+                  <div className="mt-6">
+                    <h4 className="text-xs font-semibold uppercase tracking-widest text-wine">Tools Used</h4>
+                    <div className="mt-3 flex flex-wrap gap-2">
+                      {active.tools.map((t) => (
+                        <span key={t} className="rounded-full bg-wine/10 px-3 py-1 text-xs font-medium text-wine">{t}</span>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {active.outcome && (
+                  <div className="mt-6">
+                    <h4 className="text-xs font-semibold uppercase tracking-widest text-wine">Project Outcome</h4>
+                    <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{active.outcome}</p>
+                  </div>
+                )}
+
                 {active.link && (
                   <a href={active.link} target="_blank" rel="noreferrer" className="mt-6 inline-flex items-center gap-2 rounded-full bg-wine px-6 py-3 text-xs font-semibold uppercase tracking-widest text-white">
                     Open Project <ArrowRight size={12} />
