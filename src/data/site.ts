@@ -8,6 +8,8 @@
 
 import eboIndependence from "@/assets/ebo-radio-independence.jpg";
 import ondoAnniversary from "@/assets/ondo-50th-anniversary.jpg";
+import holySaviourLive from "@/assets/holy-saviour-live.jpg";
+import birthdayAppreciation from "@/assets/birthday-appreciation.jpg";
 
 export const profile = {
   brand: "DOJ MEDIA",
