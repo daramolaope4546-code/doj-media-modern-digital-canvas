@@ -8,6 +8,8 @@
 
 import eboIndependence from "@/assets/ebo-radio-independence.jpg";
 import ondoAnniversary from "@/assets/ondo-50th-anniversary.jpg";
+import holySaviourLive from "@/assets/holy-saviour-live.jpg";
+import birthdayAppreciation from "@/assets/birthday-appreciation.jpg";
 
 export const profile = {
   brand: "DOJ MEDIA",
@@ -117,9 +119,58 @@ export const projects: {
   category: Exclude<(typeof projectCategories)[number], "All">;
   description: string;
   image?: string;
+  alt?: string;
   link?: string;
   hue: number;
+  services?: string[];
+  approach?: string;
+  tools?: string[];
+  outcome?: string;
 }[] = [
+  {
+    title: "Holy Saviour's Live Campaign Design",
+    category: "Graphics Design",
+    description:
+      "A promotional campaign design created for Holy Saviour's Gospel Mission International to promote their \"WE'RE NO MORE\" live broadcast campaign. The design combines bold typography, religious branding, social media platform elements, device mockups, vibrant gradients, and strong visual hierarchy to encourage viewers to join the live broadcast.",
+    image: holySaviourLive,
+    alt: "DOJ MEDIA Holy Saviour's Live promotional campaign design",
+    hue: 280,
+    services: [
+      "Graphic Design",
+      "Social Media Design",
+      "Promotional Design",
+      "Campaign Visual Design",
+      "Typography",
+      "Digital Marketing Design",
+    ],
+    approach:
+      "Focused on creating an energetic and attention-grabbing promotional visual that communicates the live broadcast message immediately while maintaining the organization's identity.",
+    tools: ["Canva", "Adobe Photoshop", "Figma", "AI-assisted creative tools"],
+    outcome:
+      "A high-impact campaign visual that drove awareness of the live broadcast across social media and strengthened the ministry's online presence.",
+  },
+  {
+    title: "50th Birthday Appreciation Design",
+    category: "Graphics Design",
+    description:
+      "A personalized 50th birthday appreciation design created to celebrate a golden milestone. The design combines portrait photography, elegant typography, warm colors, a structured appreciation message, and a premium celebratory layout to communicate gratitude to family, friends, and well wishers.",
+    image: birthdayAppreciation,
+    alt: "DOJ MEDIA 50th birthday appreciation graphic design",
+    hue: 40,
+    services: [
+      "Graphic Design",
+      "Birthday Design",
+      "Portrait Composition",
+      "Typography",
+      "Photo Editing",
+      "Social Media Design",
+    ],
+    approach:
+      "Focused on creating a warm, elegant and celebratory composition that gives prominence to the subject's portrait while making the appreciation message easy to read.",
+    tools: ["Canva", "Adobe Photoshop", "Figma", "AI-assisted creative tools"],
+    outcome:
+      "A heartfelt, shareable appreciation piece that delivered the celebrant's gratitude to family, friends and well wishers with a premium finish.",
+  },
   {
     title: "Nigeria Independence Day Celebration Campaign | EBO Radio",
     category: "Graphics Design",
