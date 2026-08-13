@@ -146,10 +146,11 @@ function HomePage() {
             initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 2.9, duration: 0.9 }}
             className="relative order-1 mx-auto md:order-2 w-full max-w-sm md:max-w-none"
           >
-            <div className="pointer-events-none absolute -inset-6 rounded-[3rem] bg-gradient-to-br from-wine/40 to-wine-glow/20 blur-3xl" />
-            <div className="pointer-events-none absolute -right-4 -top-4 hidden h-28 w-28 rounded-full border-2 border-white/25 sm:block" />
-            <div className="pointer-events-none absolute -bottom-5 -left-5 hidden h-32 w-32 rounded-[2rem] bg-wine/25 sm:block" />
-            <div className="relative rounded-[2.25rem] border border-white/15 bg-white/5 p-2 shadow-2xl shadow-black/50 ring-1 ring-wine/30 backdrop-blur">
+            <div className="pointer-events-none absolute -inset-6 rounded-[3rem] bg-gradient-to-br from-wine/15 to-wine-glow/10 blur-3xl" />
+            <div className="pointer-events-none absolute -right-4 -top-4 hidden h-28 w-28 rounded-full border-2 border-wine/20 sm:block" />
+            <div className="pointer-events-none absolute -bottom-5 -left-5 hidden h-32 w-32 rounded-[2rem] bg-wine/10 sm:block" />
+            <div className="relative rounded-[2.25rem] border border-foreground/10 bg-background/80 p-2 shadow-2xl shadow-foreground/10 ring-1 ring-wine/15 backdrop-blur">
+
               <img
                 src={portrait}
                 alt="Opeyemi John Daramola, DOJ MEDIA creative digital media and production specialist"
