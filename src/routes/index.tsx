@@ -133,7 +133,7 @@ function HomePage() {
                     target={href.startsWith("mailto:") ? undefined : "_blank"}
                     rel="noreferrer"
                     aria-label={label}
-                    className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/25 bg-white/10 text-white/80 backdrop-blur transition hover:-translate-y-0.5 hover:border-wine-glow hover:bg-wine hover:text-white"
+                    className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-foreground/12 bg-background/70 text-foreground/70 backdrop-blur transition hover:-translate-y-0.5 hover:border-wine hover:bg-wine hover:text-white"
                   >
                     <Icon size={18} />
                   </a>
