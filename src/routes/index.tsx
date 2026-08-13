@@ -114,10 +114,11 @@ function HomePage() {
               </Link>
               <Link
                 to="/contact"
-                className="inline-flex items-center gap-2 rounded-full border border-white/30 bg-white/10 px-7 py-3.5 text-sm font-semibold text-white backdrop-blur transition hover:bg-white/20"
+                className="inline-flex items-center gap-2 rounded-full border border-foreground/15 bg-background/70 px-7 py-3.5 text-sm font-semibold text-foreground backdrop-blur transition hover:border-wine/40 hover:text-wine"
               >
                 Let's Work Together
               </Link>
+
             </motion.div>
 
             {socials.length > 0 && (
