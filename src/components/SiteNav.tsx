@@ -26,7 +26,7 @@ export function SiteNav() {
     setOpen(false);
   }, [pathname]);
 
-  const onDark = !scrolled && pathname === "/";
+  const onDark = false;
 
   return (
     <header

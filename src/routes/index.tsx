@@ -46,40 +46,39 @@ function HomePage() {
           <div className="order-2 md:order-1">
             <motion.div
               initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 2.6, duration: 0.6 }}
-              className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/25 bg-white/10 px-4 py-1.5 text-xs font-medium uppercase tracking-widest text-white/90 backdrop-blur"
+              className="mb-6 inline-flex items-center gap-2 rounded-full border border-wine/20 bg-wine/5 px-4 py-1.5 text-xs font-medium uppercase tracking-widest text-wine backdrop-blur"
             >
               <span className="relative flex h-1.5 w-1.5">
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-wine-glow opacity-75" />
-                <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-wine-glow" />
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-wine opacity-75" />
+                <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-wine" />
               </span>
               {profile.tagline}
             </motion.div>
 
             <motion.h1
               initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 2.8, duration: 0.8 }}
-              className="font-display text-5xl font-bold leading-[1.02] tracking-tight text-white sm:text-6xl lg:text-7xl"
-              style={{ textShadow: "0 4px 40px rgba(0,0,0,0.6)" }}
+              className="font-display text-5xl font-bold leading-[1.02] tracking-tight text-foreground sm:text-6xl lg:text-7xl"
             >
               DOJ MEDIA
             </motion.h1>
 
             <motion.p
               initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 3, duration: 0.7 }}
-              className="mt-3 font-display text-xl italic text-white/85 sm:text-2xl"
+              className="mt-3 font-display text-xl italic text-foreground/80 sm:text-2xl"
             >
               Creative Digital Media Studio
             </motion.p>
 
             <motion.p
               initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 3.05, duration: 0.7 }}
-              className="mt-5 max-w-xl text-sm tracking-wide text-white/70 sm:text-base"
+              className="mt-5 max-w-xl text-sm tracking-wide text-muted-foreground sm:text-base"
             >
               Graphic Design • Web Design • Video Editing • Motion Design • Live Streaming
             </motion.p>
 
             <motion.p
               initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 3.15, duration: 0.7 }}
-              className="mt-7 max-w-xl text-xs font-semibold uppercase tracking-[0.4em] text-wine-glow"
+              className="mt-7 max-w-xl text-xs font-semibold uppercase tracking-[0.4em] text-wine"
             >
               {"CREATE. DESIGN. STREAM. INSPIRE.".split(" ").map((word, i) => (
                 <motion.span
@@ -96,10 +95,11 @@ function HomePage() {
 
             <motion.p
               initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 3.2, duration: 0.7 }}
-              className="mt-6 max-w-xl text-base leading-relaxed text-white/70"
+              className="mt-6 max-w-xl text-base leading-relaxed text-muted-foreground"
             >
               {profile.name} — {profile.title}. {profile.intro}
             </motion.p>
+
 
             <motion.div
               initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 3.4, duration: 0.7 }}
@@ -114,10 +114,11 @@ function HomePage() {
               </Link>
               <Link
                 to="/contact"
-                className="inline-flex items-center gap-2 rounded-full border border-white/30 bg-white/10 px-7 py-3.5 text-sm font-semibold text-white backdrop-blur transition hover:bg-white/20"
+                className="inline-flex items-center gap-2 rounded-full border border-foreground/15 bg-background/70 px-7 py-3.5 text-sm font-semibold text-foreground backdrop-blur transition hover:border-wine/40 hover:text-wine"
               >
                 Let's Work Together
               </Link>
+
             </motion.div>
 
             {socials.length > 0 && (
@@ -132,7 +133,7 @@ function HomePage() {
                     target={href.startsWith("mailto:") ? undefined : "_blank"}
                     rel="noreferrer"
                     aria-label={label}
-                    className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/25 bg-white/10 text-white/80 backdrop-blur transition hover:-translate-y-0.5 hover:border-wine-glow hover:bg-wine hover:text-white"
+                    className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-foreground/12 bg-background/70 text-foreground/70 backdrop-blur transition hover:-translate-y-0.5 hover:border-wine hover:bg-wine hover:text-white"
                   >
                     <Icon size={18} />
                   </a>
@@ -145,10 +146,11 @@ function HomePage() {
             initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 2.9, duration: 0.9 }}
             className="relative order-1 mx-auto md:order-2 w-full max-w-sm md:max-w-none"
           >
-            <div className="pointer-events-none absolute -inset-6 rounded-[3rem] bg-gradient-to-br from-wine/40 to-wine-glow/20 blur-3xl" />
-            <div className="pointer-events-none absolute -right-4 -top-4 hidden h-28 w-28 rounded-full border-2 border-white/25 sm:block" />
-            <div className="pointer-events-none absolute -bottom-5 -left-5 hidden h-32 w-32 rounded-[2rem] bg-wine/25 sm:block" />
-            <div className="relative rounded-[2.25rem] border border-white/15 bg-white/5 p-2 shadow-2xl shadow-black/50 ring-1 ring-wine/30 backdrop-blur">
+            <div className="pointer-events-none absolute -inset-6 rounded-[3rem] bg-gradient-to-br from-wine/15 to-wine-glow/10 blur-3xl" />
+            <div className="pointer-events-none absolute -right-4 -top-4 hidden h-28 w-28 rounded-full border-2 border-wine/20 sm:block" />
+            <div className="pointer-events-none absolute -bottom-5 -left-5 hidden h-32 w-32 rounded-[2rem] bg-wine/10 sm:block" />
+            <div className="relative rounded-[2.25rem] border border-foreground/10 bg-background/80 p-2 shadow-2xl shadow-foreground/10 ring-1 ring-wine/15 backdrop-blur">
+
               <img
                 src={portrait}
                 alt="Opeyemi John Daramola, DOJ MEDIA creative digital media and production specialist"
