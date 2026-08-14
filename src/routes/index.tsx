@@ -16,8 +16,8 @@ export const Route = createFileRoute("/")({
       { property: "og:title", content: "DOJ MEDIA | Creative Digital Solutions" },
       { property: "og:description", content: "Professional graphic design, web design, video editing, motion design, live streaming and digital creative solutions by DOJ MEDIA." },
 
-      { property: "og:image", content: "https://dojmedia.lovable.app/og-image.jpg" },
-      { name: "twitter:image", content: "https://dojmedia.lovable.app/og-image.jpg" },
+      { property: "og:image", content: "https://dojmedia.vercel.app/og-image.jpg" },
+      { name: "twitter:image", content: "https://dojmedia.vercel.app/og-image.jpg" },
     ],
   }),
   component: HomePage,

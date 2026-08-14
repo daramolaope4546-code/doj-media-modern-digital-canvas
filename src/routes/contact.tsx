@@ -1,8 +1,11 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
-import { Mail, Phone, MapPin, MessageCircle, Linkedin, Github, Instagram, Facebook, Send, Check } from "lucide-react";
+import { Mail, Phone, MapPin, MessageCircle, Linkedin, Github, Instagram, Facebook, Send, Check, Loader2, AlertCircle } from "lucide-react";
 import { PageHero, Reveal, Section } from "@/components/Section";
 import { contact } from "@/data/site";
+
+const WEB3FORMS_URL = "https://api.web3forms.com/submit";
+const ACCESS_KEY = import.meta.env.VITE_WEB3FORMS_ACCESS_KEY as string | undefined;
 
 export const Route = createFileRoute("/contact")({
   head: () => ({
@@ -11,8 +14,8 @@ export const Route = createFileRoute("/contact")({
       { name: "description", content: "Get in touch for graphics design, web design, video editing, motion design or live streaming projects." },
       { property: "og:title", content: "Contact | DOJ MEDIA" },
       { property: "og:description", content: "Send a message to start a design, video, motion or live streaming project." },
-      { property: "og:image", content: "https://dojmedia.lovable.app/og-image.jpg" },
-      { name: "twitter:image", content: "https://dojmedia.lovable.app/og-image.jpg" },
+      { property: "og:image", content: "https://dojmedia.vercel.app/og-image.jpg" },
+      { name: "twitter:image", content: "https://dojmedia.vercel.app/og-image.jpg" },
     ],
   }),
   component: ContactPage,
@@ -30,17 +33,54 @@ const socials = [
   { icon: Github, label: "GitHub", href: contact.github },
   { icon: Instagram, label: "Instagram", href: contact.instagram },
   { icon: Facebook, label: "Facebook", href: contact.facebook },
-];
+].filter((s) => s.href && !s.href.includes("["));
+
+type Status = "idle" | "sending" | "success" | "error";
 
 function ContactPage() {
-  const [sent, setSent] = useState(false);
+  const [status, setStatus] = useState<Status>("idle");
+  const [error, setError] = useState("");
   const [form, setForm] = useState({ name: "", email: "", subject: "", message: "" });
 
-  const submit = (e: React.FormEvent) => {
+  const submit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSent(true);
-    setForm({ name: "", email: "", subject: "", message: "" });
-    setTimeout(() => setSent(false), 5000);
+    setError("");
+
+    if (!ACCESS_KEY) {
+      setStatus("error");
+      setError("The contact form isn't configured yet. Please reach out via email or WhatsApp.");
+      return;
+    }
+
+    setStatus("sending");
+    try {
+      const res = await fetch(WEB3FORMS_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify({
+          access_key: ACCESS_KEY,
+          name: form.name.trim(),
+          email: form.email.trim(),
+          subject: form.subject.trim(),
+          message: form.message.trim(),
+          from_name: "DOJ MEDIA Website",
+          replyto: form.email.trim(),
+          botcheck: "",
+        }),
+      });
+      const data = await res.json();
+      if (data.success) {
+        setStatus("success");
+        setForm({ name: "", email: "", subject: "", message: "" });
+        setTimeout(() => setStatus("idle"), 6000);
+      } else {
+        setStatus("error");
+        setError(data.message || "Something went wrong. Please try again.");
+      }
+    } catch {
+      setStatus("error");
+      setError("Network error. Please check your connection and try again.");
+    }
   };
 
   return (
@@ -74,12 +114,30 @@ function ContactPage() {
               </div>
               <button
                 type="submit"
-                className="inline-flex items-center gap-2 rounded-full bg-wine px-7 py-3.5 text-sm font-semibold text-white shadow-lg shadow-wine/25 transition hover:shadow-xl hover:shadow-wine/40"
+                disabled={status === "sending"}
+                className="inline-flex items-center gap-2 rounded-full bg-wine px-7 py-3.5 text-sm font-semibold text-white shadow-lg shadow-wine/25 transition hover:shadow-xl hover:shadow-wine/40 disabled:cursor-not-allowed disabled:opacity-70"
               >
-                {sent ? <>Message sent <Check size={16} /></> : <>Send Message <Send size={14} /></>}
+                {status === "sending" ? (
+                  <>
+                    Sending <Loader2 size={14} className="animate-spin" />
+                  </>
+                ) : status === "success" ? (
+                  <>
+                    Message sent <Check size={16} />
+                  </>
+                ) : (
+                  <>
+                    Send Message <Send size={14} />
+                  </>
+                )}
               </button>
-              {sent && (
-                <p className="text-xs text-muted-foreground">Thanks, your message has been received.</p>
+              {status === "success" && (
+                <p className="text-xs font-medium text-wine">Thanks, your message has been received. I'll get back to you soon.</p>
+              )}
+              {status === "error" && (
+                <p className="flex items-center gap-1.5 text-xs font-medium text-destructive">
+                  <AlertCircle size={13} /> {error}
+                </p>
               )}
             </form>
           </Reveal>
