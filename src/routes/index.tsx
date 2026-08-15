@@ -61,45 +61,34 @@ function HomePage() {
             Uses --background so it stays white in light mode and seamless in dark mode. */}
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute inset-x-0 bottom-0 h-[32%] bg-gradient-to-t from-background via-background/30 to-transparent"
+          className="pointer-events-none absolute inset-x-0 bottom-0 z-[3] h-[32%] bg-gradient-to-t from-background via-background/30 to-transparent"
         />
 
-        {/* Oversized cinematic scrolling typography — four distinct words moving
-            through the hero as one seamless continuous loop, masked at the edges. */}
+        {/* Oversized cinematic scrolling typography — one continuous composition
+            moving through the hero as a seamless loop, masked at the viewport edges
+            and layered behind the hero content. */}
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute inset-x-0 top-[54%] -translate-y-1/2 select-none overflow-hidden [-webkit-mask-image:linear-gradient(to_right,transparent,black_12%,black_88%,transparent)] [mask-image:linear-gradient(to_right,transparent,black_12%,black_88%,transparent)]"
+          className="pointer-events-none absolute inset-x-0 top-[54%] z-[2] -translate-y-1/2 select-none overflow-hidden [-webkit-mask-image:linear-gradient(to_right,transparent,black_12%,black_88%,transparent)] [mask-image:linear-gradient(to_right,transparent,black_12%,black_88%,transparent)]"
         >
           <div className="animate-marquee motion-reduce:animate-none flex w-max items-center whitespace-nowrap font-display font-bold uppercase leading-none text-white/30">
             {[0, 1].map((copy) => (
-              <span key={copy} className="flex items-center gap-[1em] pr-[1em] text-[clamp(3.5rem,14vw,16rem)] tracking-[0.04em]">
-                <span>CREATE</span>
-                <span>DESIGN</span>
-                <span>STREAM</span>
-                <span>INSPIRE</span>
+              <span key={copy} className="flex items-center gap-[1.5em] pr-[1.5em] text-[clamp(3.5rem,14vw,16rem)] tracking-[0.02em]">
+                <span>CREATE.</span>
+                <span>DESIGN.</span>
+                <span>STREAM.</span>
+                <span>INSPIRE.</span>
               </span>
             ))}
           </div>
         </div>
 
-        {/* Mobile: profile photo first, then identity — [PHOTO] [NAME] */}
-        <div className="relative mx-auto mb-10 flex w-full max-w-7xl items-center gap-4 px-6 md:hidden lg:px-10">
-          <img
-            src={portrait}
-            alt="Opeyemi John Daramola, DOJ MEDIA creative digital media and production specialist"
-            width={884}
-            height={1200}
-            loading="eager"
-            className="h-16 w-16 shrink-0 rounded-2xl object-cover object-top ring-1 ring-white/25"
-          />
-          <div className="min-w-0">
-            <p className="text-[10px] font-semibold uppercase tracking-[0.3em] text-white/70">{profile.brand}</p>
-            <p className="mt-1 font-display text-lg font-semibold leading-snug text-white">{profile.name}</p>
-          </div>
-        </div>
-
-        <div className="relative mx-auto grid w-full max-w-7xl items-center gap-12 px-6 sm:gap-14 md:grid-cols-[1.05fr_0.95fr] lg:px-10">
-          <div>
+        {/* Hero content — layered above the scrolling typography and white dissolve.
+            The profile image is a single always-visible element: on mobile it sits
+            beside the name ([PHOTO] [NAME]); on desktop it becomes the framed
+            portrait on the right. It is never hidden by a media query. */}
+        <div className="relative z-[4] mx-auto grid w-full max-w-7xl items-center gap-12 px-6 sm:gap-14 md:grid-cols-[1.05fr_0.95fr] lg:px-10">
+          <div className="md:order-1">
             <motion.div
               initial={reduce ? false : { opacity: 0, y: 18 }}
               animate={{ opacity: 1, y: 0 }}
@@ -184,20 +173,33 @@ function HomePage() {
             initial={reduce ? false : { opacity: 0, scale: 0.96, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             transition={{ delay: firstLoad ? 1.6 : 0.3, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-            className="relative mx-auto hidden w-full max-w-[16rem] sm:max-w-[18rem] md:block md:max-w-[24rem] md:justify-self-end"
+            className="relative md:order-2 md:justify-self-end"
           >
-            <div className="pointer-events-none absolute -inset-8 rounded-[3rem] bg-[radial-gradient(circle_at_center,rgba(160,30,60,0.16),transparent_65%)] blur-2xl" />
-            <div className="relative rounded-[2.25rem] border border-white/15 bg-white/5 p-2 shadow-2xl shadow-black/60 ring-1 ring-white/10 backdrop-blur">
-              <img
-                src={portrait}
-                alt="Opeyemi John Daramola, DOJ MEDIA creative digital media and production specialist"
-                width={884}
-                height={1200}
-                loading="eager"
-                className="aspect-[4/5] w-full rounded-[1.85rem] object-cover object-top"
-              />
+            <div className="relative mx-auto flex w-full max-w-[20rem] items-center gap-5 sm:max-w-[22rem] md:block md:max-w-[24rem]">
+              {/* Soft wine glow (desktop only — decorative, never hides the image) */}
+              <div className="pointer-events-none absolute -inset-8 hidden rounded-[3rem] bg-[radial-gradient(circle_at_center,rgba(160,30,60,0.16),transparent_65%)] blur-2xl md:block" />
+
+              {/* Framed portrait — always rendered, on every breakpoint */}
+              <div className="relative shrink-0 md:w-full">
+                <div className="relative rounded-[2rem] border border-white/15 bg-white/5 p-2 shadow-2xl shadow-black/60 ring-1 ring-white/10 backdrop-blur md:rounded-[2.25rem] md:w-full">
+                  <img
+                    src={portrait}
+                    alt="Opeyemi John Daramola, DOJ MEDIA creative digital media and production specialist"
+                    width={884}
+                    height={1200}
+                    loading="eager"
+                    className="h-20 w-20 rounded-[1.5rem] object-cover object-top sm:h-24 sm:w-24 md:aspect-[4/5] md:h-auto md:w-full md:rounded-[1.85rem]"
+                  />
+                </div>
+                <div className="pointer-events-none absolute -bottom-5 -right-5 hidden h-24 w-24 rounded-full border border-white/15 sm:block" />
+              </div>
+
+              {/* Identity — beside the photo on mobile, below the portrait on desktop */}
+              <div className="min-w-0 md:mt-5 md:text-center">
+                <p className="text-[10px] font-semibold uppercase tracking-[0.3em] text-white/70">{profile.brand}</p>
+                <p className="mt-1 font-display text-base font-semibold leading-snug text-white sm:text-lg">{profile.name}</p>
+              </div>
             </div>
-            <div className="pointer-events-none absolute -bottom-5 -right-5 hidden h-24 w-24 rounded-full border border-white/15 sm:block" />
           </motion.div>
         </div>
 
