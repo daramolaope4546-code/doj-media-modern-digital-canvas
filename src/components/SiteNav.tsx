@@ -26,7 +26,9 @@ export function SiteNav() {
     setOpen(false);
   }, [pathname]);
 
-  const onDark = false;
+  // Over the dark cinematic hero (home, not scrolled) the nav needs light
+  // styling; everywhere else it keeps the site's default look.
+  const onDark = pathname === "/" && !scrolled;
 
   return (
     <header

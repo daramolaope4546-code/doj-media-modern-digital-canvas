@@ -6,7 +6,14 @@ export function LogoIntro() {
   const [visible, setVisible] = useState(true);
 
   useEffect(() => {
-    const t = setTimeout(() => setVisible(false), 2600);
+    const t = setTimeout(() => {
+      try {
+        sessionStorage.setItem("doj_intro_played", "1");
+      } catch {
+        // Storage unavailable (e.g. private mode) — the intro simply replays next visit.
+      }
+      setVisible(false);
+    }, 1200);
     return () => clearTimeout(t);
   }, []);
 
@@ -16,7 +23,7 @@ export function LogoIntro() {
         <motion.div
           initial={{ opacity: 1 }}
           exit={{ opacity: 0, transition: { duration: 0.6, ease: "easeInOut" } }}
-          className="fixed inset-0 z-[100] flex items-center justify-center bg-white dark:bg-background"
+          className="fixed inset-0 z-[100] flex items-center justify-center bg-[#0b0a0d]"
         >
           <div className="flex flex-col items-center">
             <motion.div
@@ -32,10 +39,10 @@ export function LogoIntro() {
               transition={{ delay: 0.6, duration: 0.8 }}
               className="mt-6 text-center"
             >
-              <h1 className="font-display text-3xl font-bold tracking-tight text-foreground">
-                DOJ <span style={{ color: "var(--wine)" }}>MEDIA</span>
+              <h1 className="font-display text-3xl font-bold tracking-tight text-white">
+                DOJ <span style={{ color: "#f2c6cd" }}>MEDIA</span>
               </h1>
-              <p className="mt-2 text-xs uppercase tracking-[0.35em] text-muted-foreground">
+              <p className="mt-2 text-xs uppercase tracking-[0.35em] text-white/60">
                 Create. Connect. Impact.
               </p>
             </motion.div>

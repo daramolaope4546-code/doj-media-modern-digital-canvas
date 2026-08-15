@@ -184,12 +184,47 @@
   0%,100% { background-position: 0% 50%; }
   50% { background-position: 100% 50%; }
 }
+@keyframes kenburns {
+  0% { transform: scale(1) translate(0, 0); }
+  100% { transform: scale(1.12) translate(-1.5%, 1.5%); }
+}
+@keyframes grain-shift {
+  0%,100% { background-position: 0 0; }
+  10% { background-position: -5% -10%; }
+  20% { background-position: -15% 5%; }
+  30% { background-position: 7% -25%; }
+  40% { background-position: -5% 25%; }
+  50% { background-position: -15% 10%; }
+  60% { background-position: 15% 0%; }
+  70% { background-position: 0 15%; }
+  80% { background-position: 3% 35%; }
+  90% { background-position: -10% 10%; }
+}
+@keyframes scroll-line {
+  0% { transform: scaleY(0); transform-origin: top; }
+  45% { transform: scaleY(1); transform-origin: top; }
+  55% { transform: scaleY(1); transform-origin: bottom; }
+  100% { transform: scaleY(0); transform-origin: bottom; }
+}
+@keyframes sweep {
+  0% { transform: translateX(-130%) skewX(-12deg); opacity: 0; }
+  35% { opacity: 0.6; }
+  65% { opacity: 0.6; }
+  100% { transform: translateX(330%) skewX(-12deg); opacity: 0; }
+}
 
 @utility animate-wave-sweep { animation: wave-sweep 2.2s ease-out forwards; }
 @utility animate-logo-rise { animation: logo-rise 0.9s cubic-bezier(.2,.7,.2,1) forwards; }
 @utility animate-glow-pulse { animation: glow-pulse 2.4s ease-in-out infinite; }
 @utility animate-float-slow { animation: float-slow 8s ease-in-out infinite; }
 @utility animate-marquee { animation: marquee 30s linear infinite; }
+@utility animate-kenburns { animation: kenburns 32s ease-in-out infinite alternate; }
+@utility animate-grain-shift { animation: grain-shift 1.4s steps(10) infinite; }
+@utility animate-scroll-line { animation: scroll-line 2.4s ease-in-out infinite; }
+@utility animate-sweep { animation: sweep 11s ease-in-out infinite; }
+@utility bg-grain {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160' viewBox='0 0 160 160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='0.6'/%3E%3C/svg%3E");
+}
 
 .dark {
   --background: oklch(0.14 0.02 20);

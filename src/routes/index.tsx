@@ -1,13 +1,15 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { ArrowRight, Palette, Monitor, Video, Sparkles, Radio, Camera, Share2, Linkedin, Github, Instagram, Facebook, Mail } from "lucide-react";
 import { LogoIntro } from "@/components/LogoIntro";
 import { HeroCinematic } from "@/components/HeroCinematic";
+import { DojLogo } from "@/components/DojLogo";
 import { Reveal, Section } from "@/components/Section";
 import { profile, services, skills, contact } from "@/data/site";
 import portrait from "@/assets/opeyemi-portrait.png";
 
 
+// Live Update Test
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
@@ -33,98 +35,103 @@ const socials = [
   { label: "Email", href: `mailto:${contact.email}`, Icon: Mail },
 ].filter((s) => s.href && !s.href.includes("["));
 
+function introAlreadyPlayed(): boolean {
+  if (typeof window === "undefined") return false;
+  try {
+    return window.sessionStorage.getItem("doj_intro_played") === "1";
+  } catch {
+    return false;
+  }
+}
+
 function HomePage() {
+  const reduce = useReducedMotion();
+  // On the very first visit the brand intro overlay plays first, so the hero
+  // reveal starts as it lifts. On later visits to "/" we reveal right away.
+  const firstLoad = !introAlreadyPlayed();
 
   return (
     <>
       <LogoIntro />
 
-      <section className="relative flex min-h-[100svh] items-center overflow-hidden pt-32 pb-20 sm:pt-36">
+      <section className="relative flex min-h-[100svh] flex-col justify-center overflow-hidden pt-28 pb-24 sm:pt-32 sm:pb-28">
         <HeroCinematic />
 
-        <div className="relative mx-auto grid w-full max-w-7xl items-center gap-12 px-6 sm:gap-14 md:grid-cols-2 lg:px-10">
-          <div className="order-2 md:order-1">
+        <div className="relative mx-auto grid w-full max-w-7xl items-center gap-12 px-6 sm:gap-14 md:grid-cols-[1.05fr_0.95fr] lg:px-10">
+          <div>
             <motion.div
-              initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 2.6, duration: 0.6 }}
-              className="mb-6 inline-flex items-center gap-2 rounded-full border border-wine/20 bg-wine/5 px-4 py-1.5 text-xs font-medium uppercase tracking-widest text-wine backdrop-blur"
+              initial={reduce ? false : { opacity: 0, y: 18 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: firstLoad ? 1.35 : 0.15, duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+              className="inline-flex items-center gap-3 rounded-full border border-white/15 bg-white/5 px-4 py-2 backdrop-blur"
             >
-              <span className="relative flex h-1.5 w-1.5">
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-wine opacity-75" />
-                <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-wine" />
+              <DojLogo size={22} />
+              <span className="text-[11px] font-semibold uppercase tracking-[0.28em] text-white/80">
+                {profile.brand}
+                <span className="mx-2 text-white/40">—</span>
+                Creative Digital Media Studio
               </span>
-              {profile.tagline}
             </motion.div>
 
-            <motion.h1
-              initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 2.8, duration: 0.8 }}
-              className="font-display text-5xl font-bold leading-[1.02] tracking-tight text-foreground sm:text-6xl lg:text-7xl"
-            >
-              DOJ MEDIA
-            </motion.h1>
-
-            <motion.p
-              initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 3, duration: 0.7 }}
-              className="mt-3 font-display text-xl italic text-foreground/80 sm:text-2xl"
-            >
-              Creative Digital Media Studio
-            </motion.p>
-
-            <motion.p
-              initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 3.05, duration: 0.7 }}
-              className="mt-5 max-w-xl text-sm tracking-wide text-muted-foreground sm:text-base"
-            >
-              Graphic Design • Web Design • Video Editing • Motion Design • Live Streaming
-            </motion.p>
-
-            <motion.p
-              initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 3.15, duration: 0.7 }}
-              className="mt-7 max-w-xl text-xs font-semibold uppercase tracking-[0.4em] text-wine"
-            >
+            <h1 className="mt-8 font-display text-[clamp(2.6rem,7.2vw,5.75rem)] font-bold leading-[1.04] tracking-tight text-white [text-wrap:balance]">
               {"CREATE. DESIGN. STREAM. INSPIRE.".split(" ").map((word, i) => (
                 <motion.span
                   key={word}
-                  initial={{ opacity: 0, y: 8 }}
+                  initial={reduce ? false : { opacity: 0, y: 26 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 3.3 + i * 0.16, duration: 0.5 }}
-                  className="mr-2 inline-block"
+                  transition={{ delay: firstLoad ? 1.5 + i * 0.15 : 0.2 + i * 0.08, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+                  className={i === 3 ? "italic text-[#f2c6cd]" : "mr-[0.28em] inline-block"}
                 >
                   {word}
                 </motion.span>
               ))}
+            </h1>
+
+            <motion.p
+              initial={reduce ? false : { opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: firstLoad ? 1.8 : 0.4, duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
+              className="mt-7 max-w-xl text-lg leading-relaxed text-white/75 sm:text-xl"
+            >
+              Creative media solutions crafted through design, technology, motion and storytelling.
             </motion.p>
 
             <motion.p
-              initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 3.2, duration: 0.7 }}
-              className="mt-6 max-w-xl text-base leading-relaxed text-muted-foreground"
+              initial={reduce ? false : { opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: firstLoad ? 1.95 : 0.5, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+              className="mt-5 text-xs font-semibold uppercase tracking-[0.35em] text-white/55 sm:text-sm"
             >
-              {profile.name} — {profile.title}. {profile.intro}
+              Graphics • Web • Video • Motion • Live Streaming
             </motion.p>
 
-
             <motion.div
-              initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 3.4, duration: 0.7 }}
-              className="mt-9 flex flex-wrap items-center gap-4"
+              initial={reduce ? false : { opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: firstLoad ? 2.1 : 0.6, duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
+              className="mt-10 flex flex-wrap items-center gap-4"
             >
               <Link
                 to="/portfolio"
-                className="group inline-flex items-center gap-2 rounded-full bg-wine px-7 py-3.5 text-sm font-semibold text-white shadow-xl shadow-wine/40 transition hover:shadow-2xl hover:shadow-wine/60"
+                className="group inline-flex items-center gap-2.5 rounded-full bg-wine px-8 py-4 text-xs font-bold uppercase tracking-[0.18em] text-white shadow-2xl shadow-black/40 transition duration-300 hover:-translate-y-0.5 hover:bg-[#961e3c] hover:shadow-[0_14px_44px_-12px_rgba(160,30,60,0.75)]"
               >
-                View My Work
-                <ArrowRight size={16} className="transition group-hover:translate-x-1" />
+                Explore My Work
+                <ArrowRight size={15} className="transition group-hover:translate-x-1" />
               </Link>
               <Link
                 to="/contact"
-                className="inline-flex items-center gap-2 rounded-full border border-foreground/15 bg-background/70 px-7 py-3.5 text-sm font-semibold text-foreground backdrop-blur transition hover:border-wine/40 hover:text-wine"
+                className="inline-flex items-center gap-2.5 rounded-full border border-white/25 px-8 py-4 text-xs font-bold uppercase tracking-[0.18em] text-white/90 backdrop-blur transition duration-300 hover:-translate-y-0.5 hover:border-white/60 hover:bg-white/10 hover:text-white"
               >
                 Let's Work Together
               </Link>
-
             </motion.div>
 
             {socials.length > 0 && (
               <motion.div
-                initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 3.5, duration: 0.7 }}
-                className="mt-8 flex flex-wrap items-center gap-3"
+                initial={reduce ? false : { opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: firstLoad ? 2.25 : 0.7, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+                className="mt-9 flex flex-wrap items-center gap-3"
               >
                 {socials.map(({ label, href, Icon }) => (
                   <a
@@ -133,9 +140,9 @@ function HomePage() {
                     target={href.startsWith("mailto:") ? undefined : "_blank"}
                     rel="noreferrer"
                     aria-label={label}
-                    className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-foreground/12 bg-background/70 text-foreground/70 backdrop-blur transition hover:-translate-y-0.5 hover:border-wine hover:bg-wine hover:text-white"
+                    className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/15 bg-white/5 text-white/70 backdrop-blur transition duration-300 hover:-translate-y-0.5 hover:border-white/40 hover:bg-white/10 hover:text-white"
                   >
-                    <Icon size={18} />
+                    <Icon size={16} />
                   </a>
                 ))}
               </motion.div>
@@ -143,25 +150,40 @@ function HomePage() {
           </div>
 
           <motion.div
-            initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 2.9, duration: 0.9 }}
-            className="relative order-1 mx-auto md:order-2 w-full max-w-sm md:max-w-none"
+            initial={reduce ? false : { opacity: 0, scale: 0.96, y: 20 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            transition={{ delay: firstLoad ? 1.6 : 0.3, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+            className="relative mx-auto w-full max-w-[16rem] sm:max-w-[18rem] md:max-w-[24rem] md:justify-self-end"
           >
-            <div className="pointer-events-none absolute -inset-6 rounded-[3rem] bg-gradient-to-br from-wine/15 to-wine-glow/10 blur-3xl" />
-            <div className="pointer-events-none absolute -right-4 -top-4 hidden h-28 w-28 rounded-full border-2 border-wine/20 sm:block" />
-            <div className="pointer-events-none absolute -bottom-5 -left-5 hidden h-32 w-32 rounded-[2rem] bg-wine/10 sm:block" />
-            <div className="relative rounded-[2.25rem] border border-foreground/10 bg-background/80 p-2 shadow-2xl shadow-foreground/10 ring-1 ring-wine/15 backdrop-blur">
-
+            <div className="pointer-events-none absolute -inset-8 rounded-[3rem] bg-[radial-gradient(circle_at_center,rgba(160,30,60,0.16),transparent_65%)] blur-2xl" />
+            <div className="relative rounded-[2.25rem] border border-white/15 bg-white/5 p-2 shadow-2xl shadow-black/60 ring-1 ring-white/10 backdrop-blur">
               <img
                 src={portrait}
                 alt="Opeyemi John Daramola, DOJ MEDIA creative digital media and production specialist"
                 width={884}
                 height={1200}
+                loading="eager"
                 className="aspect-[4/5] w-full rounded-[1.85rem] object-cover object-top"
               />
             </div>
+            <div className="pointer-events-none absolute -bottom-5 -right-5 hidden h-24 w-24 rounded-full border border-white/15 sm:block" />
           </motion.div>
         </div>
 
+        <motion.div
+          initial={reduce ? false : { opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: firstLoad ? 2.4 : 0.85, duration: 0.7 }}
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-x-0 bottom-7 z-10 flex flex-col items-center gap-3"
+        >
+          <span className="text-[10px] font-semibold uppercase tracking-[0.4em] text-white/55">
+            Scroll to explore
+          </span>
+          <span className="relative block h-12 w-px overflow-hidden bg-white/20">
+            <span className="absolute inset-0 block bg-white/90 motion-reduce:animate-none animate-scroll-line" />
+          </span>
+        </motion.div>
       </section>
 
 
