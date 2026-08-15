@@ -54,7 +54,7 @@ function HomePage() {
     <>
       <LogoIntro />
 
-      <section className="relative flex min-h-[100svh] flex-col justify-center overflow-hidden pt-28 pb-24 sm:pt-32 sm:pb-28">
+      <section className="relative flex min-h-[100svh] flex-col overflow-hidden pt-28 pb-24 sm:pt-32 sm:pb-28 md:justify-center">
         <HeroCinematic />
 
         {/* Soft white atmospheric fade that consumes the dark edge into the page.
@@ -64,18 +64,26 @@ function HomePage() {
           className="pointer-events-none absolute inset-x-0 bottom-0 h-[32%] bg-gradient-to-t from-background via-background/30 to-transparent"
         />
 
-        {/* Single-line vertical scrolling phrase, masked/blended into the cinematic backdrop */}
+        {/* Oversized cinematic scrolling typography — four distinct words moving
+            through the hero as one seamless continuous loop, masked at the edges. */}
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute inset-x-0 top-[54%] -translate-y-1/2 overflow-hidden py-2 [-webkit-mask-image:linear-gradient(to_bottom,transparent,black_16%,black_84%,transparent)] [mask-image:linear-gradient(to_bottom,transparent,black_16%,black_84%,transparent)]"
+          className="pointer-events-none absolute inset-x-0 top-[54%] -translate-y-1/2 select-none overflow-hidden [-webkit-mask-image:linear-gradient(to_right,transparent,black_12%,black_88%,transparent)] [mask-image:linear-gradient(to_right,transparent,black_12%,black_88%,transparent)]"
         >
-          <p className="motion-reduce:animate-none animate-marquee-drift whitespace-nowrap text-center font-display text-[clamp(0.9rem,5vw,6rem)] font-bold uppercase leading-none tracking-[0.05em] text-white/35">
-            CREATE.DESIGN.STREAM.INSPIRE.
-          </p>
+          <div className="animate-marquee motion-reduce:animate-none flex w-max items-center whitespace-nowrap font-display font-bold uppercase leading-none text-white/30">
+            {[0, 1].map((copy) => (
+              <span key={copy} className="flex items-center gap-[1em] pr-[1em] text-[clamp(3.5rem,14vw,16rem)] tracking-[0.04em]">
+                <span>CREATE</span>
+                <span>DESIGN</span>
+                <span>STREAM</span>
+                <span>INSPIRE</span>
+              </span>
+            ))}
+          </div>
         </div>
 
         {/* Mobile: profile photo first, then identity — [PHOTO] [NAME] */}
-        <div className="mx-auto mb-10 flex w-full max-w-7xl items-center gap-4 px-6 md:hidden lg:px-10">
+        <div className="relative mx-auto mb-10 flex w-full max-w-7xl items-center gap-4 px-6 md:hidden lg:px-10">
           <img
             src={portrait}
             alt="Opeyemi John Daramola, DOJ MEDIA creative digital media and production specialist"
