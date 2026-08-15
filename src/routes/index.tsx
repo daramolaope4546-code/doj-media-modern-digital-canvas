@@ -64,6 +64,32 @@ function HomePage() {
           className="pointer-events-none absolute inset-x-0 bottom-0 h-[32%] bg-gradient-to-t from-background via-background/30 to-transparent"
         />
 
+        {/* Single-line vertical scrolling phrase, masked/blended into the cinematic backdrop */}
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-x-0 top-[54%] -translate-y-1/2 overflow-hidden py-2 [-webkit-mask-image:linear-gradient(to_bottom,transparent,black_16%,black_84%,transparent)] [mask-image:linear-gradient(to_bottom,transparent,black_16%,black_84%,transparent)]"
+        >
+          <p className="motion-reduce:animate-none animate-marquee-drift whitespace-nowrap text-center font-display text-[clamp(0.9rem,5vw,6rem)] font-bold uppercase leading-none tracking-[0.05em] text-white/35">
+            CREATE.DESIGN.STREAM.INSPIRE.
+          </p>
+        </div>
+
+        {/* Mobile: profile photo first, then identity — [PHOTO] [NAME] */}
+        <div className="mx-auto mb-10 flex w-full max-w-7xl items-center gap-4 px-6 md:hidden lg:px-10">
+          <img
+            src={portrait}
+            alt="Opeyemi John Daramola, DOJ MEDIA creative digital media and production specialist"
+            width={884}
+            height={1200}
+            loading="eager"
+            className="h-16 w-16 shrink-0 rounded-2xl object-cover object-top ring-1 ring-white/25"
+          />
+          <div className="min-w-0">
+            <p className="text-[10px] font-semibold uppercase tracking-[0.3em] text-white/70">{profile.brand}</p>
+            <p className="mt-1 font-display text-lg font-semibold leading-snug text-white">{profile.name}</p>
+          </div>
+        </div>
+
         <div className="relative mx-auto grid w-full max-w-7xl items-center gap-12 px-6 sm:gap-14 md:grid-cols-[1.05fr_0.95fr] lg:px-10">
           <div>
             <motion.div
@@ -80,18 +106,8 @@ function HomePage() {
               </span>
             </motion.div>
 
-            <h1 className="mt-8 font-display text-[clamp(2.6rem,7.2vw,5.75rem)] font-bold leading-[1.04] tracking-tight text-white [text-wrap:balance]">
-              {"CREATE. DESIGN. STREAM. INSPIRE.".split(" ").map((word, i) => (
-                <motion.span
-                  key={word}
-                  initial={reduce ? false : { opacity: 0, y: 26 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: firstLoad ? 1.5 + i * 0.15 : 0.2 + i * 0.08, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-                  className={i === 3 ? "italic text-[#f2c6cd]" : "mr-[0.28em] inline-block"}
-                >
-                  {word}
-                </motion.span>
-              ))}
+            <h1 className="sr-only">
+              DOJ MEDIA — Creative Digital Media Studio. CREATE. DESIGN. STREAM. INSPIRE.
             </h1>
 
             <motion.p
@@ -160,7 +176,7 @@ function HomePage() {
             initial={reduce ? false : { opacity: 0, scale: 0.96, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             transition={{ delay: firstLoad ? 1.6 : 0.3, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-            className="relative mx-auto w-full max-w-[16rem] sm:max-w-[18rem] md:max-w-[24rem] md:justify-self-end"
+            className="relative mx-auto hidden w-full max-w-[16rem] sm:max-w-[18rem] md:block md:max-w-[24rem] md:justify-self-end"
           >
             <div className="pointer-events-none absolute -inset-8 rounded-[3rem] bg-[radial-gradient(circle_at_center,rgba(160,30,60,0.16),transparent_65%)] blur-2xl" />
             <div className="relative rounded-[2.25rem] border border-white/15 bg-white/5 p-2 shadow-2xl shadow-black/60 ring-1 ring-white/10 backdrop-blur">
