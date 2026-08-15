@@ -64,47 +64,82 @@ function HomePage() {
           className="pointer-events-none absolute inset-x-0 bottom-0 z-[3] h-[32%] bg-gradient-to-t from-background via-background/30 to-transparent"
         />
 
-        {/* Oversized cinematic scrolling typography — one continuous composition
-            moving through the hero as a seamless loop, masked at the viewport edges
-            and layered behind the hero content. */}
+        {/* DOJ MEDIA branding + large profile image — one image element, always
+            visible at every breakpoint, never hidden by a media query or opacity. */}
+        <div className="relative z-[4] mx-auto flex w-full max-w-4xl flex-col items-center px-6 text-center lg:px-10">
+          <motion.div
+            initial={reduce ? false : { opacity: 0, y: 18 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: firstLoad ? 1.35 : 0.15, duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+            className="inline-flex items-center gap-3 rounded-full border border-white/15 bg-white/5 px-4 py-2 backdrop-blur"
+          >
+            <DojLogo size={22} />
+            <span className="text-[11px] font-semibold uppercase tracking-[0.28em] text-white/80">
+              {profile.brand}
+              <span className="mx-2 text-white/40">—</span>
+              Creative Digital Media Studio
+            </span>
+          </motion.div>
+
+          <motion.div
+            initial={reduce ? false : { opacity: 0, scale: 0.96, y: 20 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            transition={{ delay: firstLoad ? 1.6 : 0.3, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+            className="mt-12 flex flex-col items-center"
+          >
+            <div className="relative w-full max-w-[16rem] sm:max-w-[18rem] md:max-w-[24rem]">
+              <div className="pointer-events-none absolute -inset-8 rounded-[3rem] bg-[radial-gradient(circle_at_center,rgba(160,30,60,0.16),transparent_65%)] blur-2xl" />
+              <div className="relative rounded-[2.25rem] border border-white/15 bg-white/5 p-2 shadow-2xl shadow-black/60 ring-1 ring-white/10 backdrop-blur">
+                <img
+                  src={portrait}
+                  alt="Opeyemi John Daramola, DOJ MEDIA creative digital media and production specialist"
+                  width={884}
+                  height={1200}
+                  loading="eager"
+                  className="aspect-[4/5] w-full rounded-[1.85rem] object-cover object-top"
+                />
+              </div>
+              <div className="pointer-events-none absolute -bottom-5 -right-5 hidden h-24 w-24 rounded-full border border-white/15 sm:block" />
+            </div>
+            <p className="mt-6 font-display text-xl font-semibold leading-snug text-white sm:text-2xl">{profile.name}</p>
+          </motion.div>
+        </div>
+
+        {/* Dedicated scrolling typography line — its own row between the profile
+            and the headline, so it never overlaps the photo, name, heading or CTAs.
+            The words stay separated by generous responsive gaps and remain solid
+            (no opacity). Clipped inside this container so no horizontal scroll. */}
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute inset-x-0 top-[54%] z-[2] -translate-y-1/2 select-none overflow-hidden [-webkit-mask-image:linear-gradient(to_right,transparent,black_12%,black_88%,transparent)] [mask-image:linear-gradient(to_right,transparent,black_12%,black_88%,transparent)]"
+          className="pointer-events-none relative z-[4] mt-14 w-full select-none overflow-hidden [-webkit-mask-image:linear-gradient(to_right,transparent,black_8%,black_92%,transparent)] [mask-image:linear-gradient(to_right,transparent,black_8%,black_92%,transparent)]"
         >
-          <div className="animate-marquee motion-reduce:animate-none flex w-max items-center whitespace-nowrap font-display font-bold uppercase leading-none text-white/30">
+          <div className="animate-marquee motion-reduce:animate-none flex w-max items-center whitespace-nowrap font-display font-bold uppercase leading-none text-white">
             {[0, 1].map((copy) => (
-              <span key={copy} className="flex items-center gap-[1.5em] pr-[1.5em] text-[clamp(3.5rem,14vw,16rem)] tracking-[0.02em]">
-                <span>CREATE.</span>
-                <span>DESIGN.</span>
-                <span>STREAM.</span>
-                <span>INSPIRE.</span>
+              <span key={copy} className="flex items-center gap-[1.25em] pr-[1.25em] text-[clamp(3.5rem,14vw,16rem)] tracking-[0.02em] sm:gap-[1.75em] sm:pr-[1.75em] md:gap-[2.5em] md:pr-[2.5em]">
+                <span>CREATE</span>
+                <span>DESIGN</span>
+                <span>STREAM</span>
+                <span>INSPIRE</span>
               </span>
             ))}
           </div>
         </div>
 
-        {/* Hero content — layered above the scrolling typography and white dissolve.
-            The profile image is a single always-visible element: on mobile it sits
-            beside the name ([PHOTO] [NAME]); on desktop it becomes the framed
-            portrait on the right. It is never hidden by a media query. */}
-        <div className="relative z-[4] mx-auto grid w-full max-w-7xl items-center gap-12 px-6 sm:gap-14 md:grid-cols-[1.05fr_0.95fr] lg:px-10">
-          <div className="md:order-1">
-            <motion.div
-              initial={reduce ? false : { opacity: 0, y: 18 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: firstLoad ? 1.35 : 0.15, duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
-              className="inline-flex items-center gap-3 rounded-full border border-white/15 bg-white/5 px-4 py-2 backdrop-blur"
-            >
-              <DojLogo size={22} />
-              <span className="text-[11px] font-semibold uppercase tracking-[0.28em] text-white/80">
-                {profile.brand}
-                <span className="mx-2 text-white/40">—</span>
-                Creative Digital Media Studio
-              </span>
-            </motion.div>
-
-            <h1 className="sr-only">
-              DOJ MEDIA — Creative Digital Media Studio. CREATE. DESIGN. STREAM. INSPIRE.
+        {/* Hero headline + messaging */}
+        <div className="relative z-[4] mx-auto flex w-full max-w-4xl flex-col items-center px-6 text-center lg:px-10">
+          <div>
+            <h1 className="mt-12 font-display text-[clamp(2.4rem,6vw,4.75rem)] font-bold leading-[1.05] tracking-tight text-white [text-wrap:balance]">
+              {"CREATE. DESIGN. STREAM. INSPIRE.".split(" ").map((word, i) => (
+                <motion.span
+                  key={word}
+                  initial={reduce ? false : { opacity: 0, y: 26 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: firstLoad ? 1.7 + i * 0.12 : 0.2 + i * 0.08, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+                  className={i === 3 ? "italic text-[#f2c6cd]" : "mr-[0.28em] inline-block"}
+                >
+                  {word}
+                </motion.span>
+              ))}
             </h1>
 
             <motion.p
@@ -129,7 +164,7 @@ function HomePage() {
               initial={reduce ? false : { opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: firstLoad ? 2.1 : 0.6, duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
-              className="mt-10 flex flex-wrap items-center gap-4"
+              className="mt-10 flex flex-wrap items-center justify-center gap-4"
             >
               <Link
                 to="/portfolio"
@@ -151,7 +186,7 @@ function HomePage() {
                 initial={reduce ? false : { opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: firstLoad ? 2.25 : 0.7, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-                className="mt-9 flex flex-wrap items-center gap-3"
+                className="mt-9 flex flex-wrap items-center justify-center gap-3"
               >
                 {socials.map(({ label, href, Icon }) => (
                   <a
@@ -168,39 +203,6 @@ function HomePage() {
               </motion.div>
             )}
           </div>
-
-          <motion.div
-            initial={reduce ? false : { opacity: 0, scale: 0.96, y: 20 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            transition={{ delay: firstLoad ? 1.6 : 0.3, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-            className="relative md:order-2 md:justify-self-end"
-          >
-            <div className="relative mx-auto flex w-full max-w-[20rem] items-center gap-5 sm:max-w-[22rem] md:block md:max-w-[24rem]">
-              {/* Soft wine glow (desktop only — decorative, never hides the image) */}
-              <div className="pointer-events-none absolute -inset-8 hidden rounded-[3rem] bg-[radial-gradient(circle_at_center,rgba(160,30,60,0.16),transparent_65%)] blur-2xl md:block" />
-
-              {/* Framed portrait — always rendered, on every breakpoint */}
-              <div className="relative shrink-0 md:w-full">
-                <div className="relative rounded-[2rem] border border-white/15 bg-white/5 p-2 shadow-2xl shadow-black/60 ring-1 ring-white/10 backdrop-blur md:rounded-[2.25rem] md:w-full">
-                  <img
-                    src={portrait}
-                    alt="Opeyemi John Daramola, DOJ MEDIA creative digital media and production specialist"
-                    width={884}
-                    height={1200}
-                    loading="eager"
-                    className="h-20 w-20 rounded-[1.5rem] object-cover object-top sm:h-24 sm:w-24 md:aspect-[4/5] md:h-auto md:w-full md:rounded-[1.85rem]"
-                  />
-                </div>
-                <div className="pointer-events-none absolute -bottom-5 -right-5 hidden h-24 w-24 rounded-full border border-white/15 sm:block" />
-              </div>
-
-              {/* Identity — beside the photo on mobile, below the portrait on desktop */}
-              <div className="min-w-0 md:mt-5 md:text-center">
-                <p className="text-[10px] font-semibold uppercase tracking-[0.3em] text-white/70">{profile.brand}</p>
-                <p className="mt-1 font-display text-base font-semibold leading-snug text-white sm:text-lg">{profile.name}</p>
-              </div>
-            </div>
-          </motion.div>
         </div>
 
         <motion.div
