@@ -57,6 +57,13 @@ function HomePage() {
       <section className="relative flex min-h-[100svh] flex-col justify-center overflow-hidden pt-28 pb-24 sm:pt-32 sm:pb-28">
         <HeroCinematic />
 
+        {/* Soft white atmospheric fade that consumes the dark edge into the page.
+            Uses --background so it stays white in light mode and seamless in dark mode. */}
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-x-0 bottom-0 h-[32%] bg-gradient-to-t from-background via-background/30 to-transparent"
+        />
+
         <div className="relative mx-auto grid w-full max-w-7xl items-center gap-12 px-6 sm:gap-14 md:grid-cols-[1.05fr_0.95fr] lg:px-10">
           <div>
             <motion.div
@@ -177,11 +184,11 @@ function HomePage() {
           aria-hidden="true"
           className="pointer-events-none absolute inset-x-0 bottom-7 z-10 flex flex-col items-center gap-3"
         >
-          <span className="text-[10px] font-semibold uppercase tracking-[0.4em] text-white/55">
+          <span className="text-[10px] font-semibold uppercase tracking-[0.4em] text-foreground/60">
             Scroll to explore
           </span>
-          <span className="relative block h-12 w-px overflow-hidden bg-white/20">
-            <span className="absolute inset-0 block bg-white/90 motion-reduce:animate-none animate-scroll-line" />
+          <span className="relative block h-12 w-px overflow-hidden bg-foreground/20">
+            <span className="absolute inset-0 block bg-foreground/80 motion-reduce:animate-none animate-scroll-line" />
           </span>
         </motion.div>
       </section>

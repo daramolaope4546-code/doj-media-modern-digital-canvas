@@ -14,7 +14,10 @@ import studioImage from "@/assets/hero-studio.jpg";
 
 export function HeroCinematic({ className = "" }: { className?: string }) {
   return (
-    <div className={`pointer-events-none absolute inset-0 overflow-hidden ${className}`} aria-hidden="true">
+    <div
+      aria-hidden="true"
+      className={`pointer-events-none absolute inset-0 overflow-hidden [-webkit-mask-image:linear-gradient(to_bottom,black_0%,black_70%,rgba(0,0,0,0.92)_80%,rgba(0,0,0,0.5)_91%,transparent_100%)] [mask-image:linear-gradient(to_bottom,black_0%,black_70%,rgba(0,0,0,0.92)_80%,rgba(0,0,0,0.5)_91%,transparent_100%)] ${className}`}
+    >
       {/* Studio still — slow cinematic drift */}
       <img
         src={studioImage}
