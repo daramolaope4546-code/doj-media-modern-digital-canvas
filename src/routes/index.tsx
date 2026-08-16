@@ -5,6 +5,7 @@ import { LogoIntro } from "@/components/LogoIntro";
 import { HeroCinematic } from "@/components/HeroCinematic";
 import { DojLogo } from "@/components/DojLogo";
 import { Reveal, Section } from "@/components/Section";
+import { ReviewsSection } from "@/components/ReviewsSection";
 import { profile, services, skills, contact } from "@/data/site";
 import portrait from "@/assets/opeyemi-portrait.png";
 
@@ -246,6 +247,8 @@ function HomePage() {
           </Link>
         </div>
       </Section>
+
+      <ReviewsSection />
 
       <section className="relative overflow-hidden py-16 sm:py-24">
         <div className="mx-auto max-w-5xl px-6 lg:px-10">
