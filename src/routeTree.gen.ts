@@ -15,7 +15,10 @@ import { Route as ContactRouteImport } from './routes/contact'
 import { Route as ExperienceRouteImport } from './routes/experience'
 import { Route as McpRouteImport } from './routes/mcp'
 import { Route as PortfolioRouteImport } from './routes/portfolio'
+<<<<<<< HEAD
 import { Route as ReviewsAdminRouteImport } from './routes/reviews-admin'
+=======
+>>>>>>> 483a6af (fix: protect env files and regenerate route tree)
 import { Route as ServicesRouteImport } from './routes/services'
 import { Route as SkillsRouteImport } from './routes/skills'
 import { Route as Char91DotmcpChar93ListToolsRouteImport } from './routes/[.mcp]/list-tools'
@@ -52,11 +55,14 @@ const PortfolioRoute = PortfolioRouteImport.update({
   path: '/portfolio',
   getParentRoute: () => rootRouteImport,
 } as any)
+<<<<<<< HEAD
 const ReviewsAdminRoute = ReviewsAdminRouteImport.update({
   id: '/reviews-admin',
   path: '/reviews-admin',
   getParentRoute: () => rootRouteImport,
 } as any)
+=======
+>>>>>>> 483a6af (fix: protect env files and regenerate route tree)
 const ServicesRoute = ServicesRouteImport.update({
   id: '/services',
   path: '/services',
@@ -233,6 +239,7 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PortfolioRouteImport
       parentRoute: typeof rootRouteImport
     }
+<<<<<<< HEAD
     '/reviews-admin': {
       id: '/reviews-admin'
       path: '/reviews-admin'
@@ -240,6 +247,8 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ReviewsAdminRouteImport
       parentRoute: typeof rootRouteImport
     }
+=======
+>>>>>>> 483a6af (fix: protect env files and regenerate route tree)
     '/services': {
       id: '/services'
       path: '/services'
