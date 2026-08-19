@@ -11,14 +11,11 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AboutRouteImport } from './routes/about'
+import { Route as AdminRouteImport } from './routes/admin'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as ExperienceRouteImport } from './routes/experience'
 import { Route as McpRouteImport } from './routes/mcp'
 import { Route as PortfolioRouteImport } from './routes/portfolio'
-<<<<<<< HEAD
-import { Route as ReviewsAdminRouteImport } from './routes/reviews-admin'
-=======
->>>>>>> 483a6af (fix: protect env files and regenerate route tree)
 import { Route as ServicesRouteImport } from './routes/services'
 import { Route as SkillsRouteImport } from './routes/skills'
 import { Route as Char91DotmcpChar93ListToolsRouteImport } from './routes/[.mcp]/list-tools'
@@ -33,6 +30,11 @@ const IndexRoute = IndexRouteImport.update({
 const AboutRoute = AboutRouteImport.update({
   id: '/about',
   path: '/about',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminRoute = AdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ContactRoute = ContactRouteImport.update({
@@ -55,14 +57,6 @@ const PortfolioRoute = PortfolioRouteImport.update({
   path: '/portfolio',
   getParentRoute: () => rootRouteImport,
 } as any)
-<<<<<<< HEAD
-const ReviewsAdminRoute = ReviewsAdminRouteImport.update({
-  id: '/reviews-admin',
-  path: '/reviews-admin',
-  getParentRoute: () => rootRouteImport,
-} as any)
-=======
->>>>>>> 483a6af (fix: protect env files and regenerate route tree)
 const ServicesRoute = ServicesRouteImport.update({
   id: '/services',
   path: '/services',
@@ -95,11 +89,11 @@ const Char91DotmcpChar93InvokeToolToolRoute =
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/admin': typeof AdminRoute
   '/contact': typeof ContactRoute
   '/experience': typeof ExperienceRoute
   '/mcp': typeof McpRoute
   '/portfolio': typeof PortfolioRoute
-  '/reviews-admin': typeof ReviewsAdminRoute
   '/services': typeof ServicesRoute
   '/skills': typeof SkillsRoute
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
@@ -109,11 +103,11 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/admin': typeof AdminRoute
   '/contact': typeof ContactRoute
   '/experience': typeof ExperienceRoute
   '/mcp': typeof McpRoute
   '/portfolio': typeof PortfolioRoute
-  '/reviews-admin': typeof ReviewsAdminRoute
   '/services': typeof ServicesRoute
   '/skills': typeof SkillsRoute
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
@@ -124,11 +118,11 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/admin': typeof AdminRoute
   '/contact': typeof ContactRoute
   '/experience': typeof ExperienceRoute
   '/mcp': typeof McpRoute
   '/portfolio': typeof PortfolioRoute
-  '/reviews-admin': typeof ReviewsAdminRoute
   '/services': typeof ServicesRoute
   '/skills': typeof SkillsRoute
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
@@ -140,11 +134,11 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/about'
+    | '/admin'
     | '/contact'
     | '/experience'
     | '/mcp'
     | '/portfolio'
-    | '/reviews-admin'
     | '/services'
     | '/skills'
     | '/.mcp/list-tools'
@@ -154,11 +148,11 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/about'
+    | '/admin'
     | '/contact'
     | '/experience'
     | '/mcp'
     | '/portfolio'
-    | '/reviews-admin'
     | '/services'
     | '/skills'
     | '/.mcp/list-tools'
@@ -168,11 +162,11 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/about'
+    | '/admin'
     | '/contact'
     | '/experience'
     | '/mcp'
     | '/portfolio'
-    | '/reviews-admin'
     | '/services'
     | '/skills'
     | '/.mcp/list-tools'
@@ -183,11 +177,11 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
+  AdminRoute: typeof AdminRoute
   ContactRoute: typeof ContactRoute
   ExperienceRoute: typeof ExperienceRoute
   McpRoute: typeof McpRoute
   PortfolioRoute: typeof PortfolioRoute
-  ReviewsAdminRoute: typeof ReviewsAdminRoute
   ServicesRoute: typeof ServicesRoute
   SkillsRoute: typeof SkillsRoute
   Char91DotmcpChar93ListToolsRoute: typeof Char91DotmcpChar93ListToolsRoute
@@ -209,6 +203,13 @@ declare module '@tanstack/react-router' {
       path: '/about'
       fullPath: '/about'
       preLoaderRoute: typeof AboutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin': {
+      id: '/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AdminRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/contact': {
@@ -239,16 +240,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PortfolioRouteImport
       parentRoute: typeof rootRouteImport
     }
-<<<<<<< HEAD
-    '/reviews-admin': {
-      id: '/reviews-admin'
-      path: '/reviews-admin'
-      fullPath: '/reviews-admin'
-      preLoaderRoute: typeof ReviewsAdminRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-=======
->>>>>>> 483a6af (fix: protect env files and regenerate route tree)
     '/services': {
       id: '/services'
       path: '/services'
@@ -290,11 +281,11 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
+  AdminRoute: AdminRoute,
   ContactRoute: ContactRoute,
   ExperienceRoute: ExperienceRoute,
   McpRoute: McpRoute,
   PortfolioRoute: PortfolioRoute,
-  ReviewsAdminRoute: ReviewsAdminRoute,
   ServicesRoute: ServicesRoute,
   SkillsRoute: SkillsRoute,
   Char91DotmcpChar93ListToolsRoute: Char91DotmcpChar93ListToolsRoute,

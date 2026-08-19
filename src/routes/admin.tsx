@@ -15,7 +15,7 @@ import { cn } from "@/lib/utils";
 const ADMIN_HASH = import.meta.env.VITE_REVIEWS_ADMIN_HASH as string | undefined;
 const AUTH_KEY = "doj_reviews_admin_authed";
 
-export const Route = createFileRoute("/reviews-admin")({
+export const Route = createFileRoute("/admin")({
   head: () => ({
     meta: [
       { title: "Review Moderation | DOJ MEDIA" },
@@ -187,7 +187,7 @@ function ReviewsAdminPage() {
                   )}
 
                   <p className="mt-3 flex-1 break-words whitespace-pre-line text-sm leading-relaxed text-muted-foreground">
-                    “{review.review}”
+                    &ldquo;{review.review}&rdquo;
                   </p>
 
                   <div className="mt-5 flex flex-wrap gap-2 border-t border-border/70 pt-4">
@@ -326,7 +326,7 @@ function PasscodeGate({ onAuthed }: { onAuthed: () => void }) {
               disabled={checking || !code.trim()}
               className="mt-6 inline-flex w-full items-center justify-center rounded-full bg-wine px-7 py-3.5 text-xs font-bold uppercase tracking-[0.18em] text-white shadow-lg shadow-wine/25 transition hover:bg-[#961e3c] disabled:cursor-not-allowed disabled:opacity-70"
             >
-              {checking ? "Checking…" : "Unlock"}
+              {checking ? "Checking\u2026" : "Unlock"}
             </button>
           </form>
         </Reveal>
