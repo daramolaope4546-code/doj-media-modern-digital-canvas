@@ -4,23 +4,45 @@ import { Section, Reveal } from "@/components/Section";
 import { ReviewCard } from "@/components/ReviewCard";
 import { ReviewFormDialog } from "@/components/ReviewFormDialog";
 import { featuredReviews, type Review } from "@/data/reviews";
-import { getPublicReviews, subscribeReviews } from "@/lib/reviews-store";
+import { getPublicReviews } from "@/lib/reviews-store";
+import { isSupabaseConfigured } from "@/lib/supabase";
 
 export function ReviewsSection() {
   const [reviews, setReviews] = useState<Review[]>(featuredReviews);
   const [dialogOpen, setDialogOpen] = useState(false);
 
   useEffect(() => {
-    setReviews(getPublicReviews(featuredReviews));
-    const unsubscribe = subscribeReviews(() => setReviews(getPublicReviews(featuredReviews)));
-    return unsubscribe;
+    let active = true;
+    getPublicReviews(featuredReviews).then((r) => {
+      if (active) setReviews(r);
+    });
+    return () => {
+      active = false;
+    };
   }, []);
+
+  // Refetch when the dialog closes (after a submission) so new pending reviews
+  // are not shown, but the public list stays current.
+  useEffect(() => {
+    if (dialogOpen || !isSupabaseConfigured()) return;
+    let active = true;
+    getPublicReviews(featuredReviews).then((r) => {
+      if (active) setReviews(r);
+    });
+    return () => {
+      active = false;
+    };
+  }, [dialogOpen]);
 
   return (
     <>
       <Section
         eyebrow="Client Reviews"
-        title={<>What people <span className="italic text-wine">say</span>.</>}
+        title={
+          <>
+            What people <span className="italic text-wine">say</span>.
+          </>
+        }
         subtitle="A few words from clients and partners who have worked with DOJ MEDIA."
       >
         {reviews.length === 0 ? (
@@ -30,7 +52,8 @@ export function ReviewsSection() {
                 Be one of the first to share your experience
               </h3>
               <p className="mt-4 text-sm leading-relaxed text-muted-foreground sm:text-base">
-                Have you worked with DOJ MEDIA? Your feedback helps others understand what to expect.
+                Have you worked with DOJ MEDIA? Your feedback helps others understand what to
+                expect.
               </p>
               <button
                 type="button"

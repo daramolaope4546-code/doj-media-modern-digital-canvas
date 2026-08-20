@@ -1,9 +1,11 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { ArrowRight, X } from "lucide-react";
 import { PageHero, Section } from "@/components/Section";
-import { projectCategories, projects } from "@/data/site";
+import { projectCategories as staticCategories, projects as staticProjects } from "@/data/site";
+import { getPublicProjects, type Project as SupaProject } from "@/lib/projects-store";
+import { isSupabaseConfigured } from "@/lib/supabase";
 
 export const Route = createFileRoute("/portfolio")({
   head: () => ({
@@ -19,11 +21,94 @@ export const Route = createFileRoute("/portfolio")({
   component: PortfolioPage,
 });
 
-type Project = (typeof projects)[number];
+/* ── Unified project shape for the gallery ─────────────────── */
+
+interface DisplayProject {
+  id: string;
+  title: string;
+  category: string;
+  description: string;
+  image: string | null;
+  alt: string;
+  hue: number;
+  services: string[];
+  approach: string;
+  tools: string[];
+  outcome: string;
+  link: string | null;
+}
+
+function supabaseToDisplay(p: SupaProject): DisplayProject {
+  return {
+    id: p.id,
+    title: p.title,
+    category: p.category,
+    description: p.description,
+    image: p.coverImage,
+    alt: p.alt || p.title,
+    hue: p.hue,
+    services: p.services,
+    approach: p.approach,
+    tools: p.tools,
+    outcome: p.outcome,
+    link: p.projectUrl,
+  };
+}
+
+function staticToDisplay(
+  p: (typeof staticProjects)[number],
+  index: number,
+): DisplayProject {
+  return {
+    id: `static-${index}`,
+    title: p.title,
+    category: p.category,
+    description: p.description,
+    image: p.image ?? null,
+    alt: p.alt ?? p.title,
+    hue: p.hue,
+    services: p.services ?? [],
+    approach: p.approach ?? "",
+    tools: p.tools ?? [],
+    outcome: p.outcome ?? "",
+    link: p.link ?? null,
+  };
+}
+
+/* ── Page ──────────────────────────────────────────────────── */
 
 function PortfolioPage() {
   const [filter, setFilter] = useState<string>("All");
-  const [active, setActive] = useState<Project | null>(null);
+  const [active, setActive] = useState<DisplayProject | null>(null);
+  const [projects, setProjects] = useState<DisplayProject[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    if (!isSupabaseConfigured()) {
+      setProjects(staticProjects.map((p, i) => staticToDisplay(p, i)));
+      setLoading(false);
+      return;
+    }
+    getPublicProjects()
+      .then((rows) => {
+        if (rows.length > 0) {
+          setProjects(rows.map(supabaseToDisplay));
+        } else {
+          setProjects(staticProjects.map((p, i) => staticToDisplay(p, i)));
+        }
+        setLoading(false);
+      })
+      .catch(() => {
+        setProjects(staticProjects.map((p, i) => staticToDisplay(p, i)));
+        setLoading(false);
+      });
+  }, []);
+
+  const categories = useMemo(() => {
+    const cats = new Set(projects.map((p) => p.category));
+    return ["All", ...Array.from(cats).sort()] as string[];
+  }, [projects]);
+
   const filtered = filter === "All" ? projects : projects.filter((p) => p.category === filter);
 
   return (
@@ -36,7 +121,7 @@ function PortfolioPage() {
 
       <Section>
         <div className="mb-10 flex flex-wrap justify-center gap-2">
-          {projectCategories.map((c) => (
+          {categories.map((c) => (
             <button
               key={c}
               onClick={() => setFilter(c)}
@@ -51,52 +136,58 @@ function PortfolioPage() {
           ))}
         </div>
 
-        <motion.div layout className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          <AnimatePresence mode="popLayout">
-            {filtered.map((p) => (
-              <motion.article
-                key={p.title}
-                layout
-                initial={{ opacity: 0, scale: 0.95 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.95 }}
-                transition={{ duration: 0.35 }}
-                className="group overflow-hidden rounded-3xl border border-border bg-card"
-              >
-                <div className="relative aspect-[4/3] overflow-hidden">
-                  {p.image ? (
-                    <>
+        {loading ? (
+          <div className="flex items-center justify-center py-20">
+            <div className="h-6 w-6 animate-spin rounded-full border-2 border-wine border-t-transparent" />
+          </div>
+        ) : (
+          <motion.div layout className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            <AnimatePresence mode="popLayout">
+              {filtered.map((p) => (
+                <motion.article
+                  key={p.id}
+                  layout
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.95 }}
+                  transition={{ duration: 0.35 }}
+                  className="group overflow-hidden rounded-3xl border border-border bg-card"
+                >
+                  <div className="relative aspect-[4/3] overflow-hidden">
+                    {p.image ? (
+                      <>
+                        <div
+                          aria-hidden
+                          className="absolute inset-0 scale-110 bg-cover bg-center blur-2xl opacity-40"
+                          style={{ backgroundImage: `url(${p.image})` }}
+                        />
+                        <img src={p.image} alt={p.alt} loading="lazy" className="relative h-full w-full object-contain transition duration-700 group-hover:scale-105" />
+                      </>
+                    ) : (
                       <div
-                        aria-hidden
-                        className="absolute inset-0 scale-110 bg-cover bg-center blur-2xl opacity-40"
-                        style={{ backgroundImage: `url(${p.image})` }}
+                        className="h-full w-full transition duration-700 group-hover:scale-110"
+                        style={{ background: `linear-gradient(135deg, hsl(${p.hue} 45% 25%), hsl(${p.hue} 60% 45%))` }}
                       />
-                      <img src={p.image} alt={p.alt ?? p.title} loading="lazy" className="relative h-full w-full object-contain transition duration-700 group-hover:scale-105" />
-                    </>
-                  ) : (
-                    <div
-                      className="h-full w-full transition duration-700 group-hover:scale-110"
-                      style={{ background: `linear-gradient(135deg, hsl(${p.hue} 45% 25%), hsl(${p.hue} 60% 45%))` }}
-                    />
-                  )}
-                  <span className="absolute left-4 top-4 rounded-full bg-black/40 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.2em] text-white backdrop-blur">
-                    {p.category}
-                  </span>
-                </div>
-                <div className="p-6">
-                  <h2 className="font-display text-lg font-semibold text-foreground">{p.title}</h2>
-                  <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{p.description}</p>
-                  <button
-                    onClick={() => setActive(p)}
-                    className="mt-5 inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-wine transition hover:gap-3"
-                  >
-                    View Project <ArrowRight size={12} />
-                  </button>
-                </div>
-              </motion.article>
-            ))}
-          </AnimatePresence>
-        </motion.div>
+                    )}
+                    <span className="absolute left-4 top-4 rounded-full bg-black/40 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.2em] text-white backdrop-blur">
+                      {p.category}
+                    </span>
+                  </div>
+                  <div className="p-6">
+                    <h2 className="font-display text-lg font-semibold text-foreground">{p.title}</h2>
+                    <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{p.description}</p>
+                    <button
+                      onClick={() => setActive(p)}
+                      className="mt-5 inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-wine transition hover:gap-3"
+                    >
+                      View Project <ArrowRight size={12} />
+                    </button>
+                  </div>
+                </motion.article>
+              ))}
+            </AnimatePresence>
+          </motion.div>
+        )}
       </Section>
 
       <AnimatePresence>
@@ -112,7 +203,7 @@ function PortfolioPage() {
               className="relative max-h-[90vh] w-full max-w-3xl overflow-y-auto rounded-3xl bg-card"
             >
               {active.image ? (
-                <img src={active.image} alt={active.alt ?? active.title} className="max-h-[60vh] w-full bg-muted object-contain" />
+                <img src={active.image} alt={active.alt} className="max-h-[60vh] w-full bg-muted object-contain" />
 
               ) : (
                 <div className="aspect-video" style={{ background: `linear-gradient(135deg, hsl(${active.hue} 45% 25%), hsl(${active.hue} 60% 45%))` }} />
@@ -122,7 +213,7 @@ function PortfolioPage() {
                 <h3 className="mt-2 font-display text-2xl font-bold text-foreground">{active.title}</h3>
                 <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{active.description}</p>
 
-                {active.services && (
+                {active.services.length > 0 && (
                   <div className="mt-6">
                     <h4 className="text-xs font-semibold uppercase tracking-widest text-wine">Services Provided</h4>
                     <div className="mt-3 flex flex-wrap gap-2">
@@ -140,7 +231,7 @@ function PortfolioPage() {
                   </div>
                 )}
 
-                {active.tools && (
+                {active.tools.length > 0 && (
                   <div className="mt-6">
                     <h4 className="text-xs font-semibold uppercase tracking-widest text-wine">Tools Used</h4>
                     <div className="mt-3 flex flex-wrap gap-2">

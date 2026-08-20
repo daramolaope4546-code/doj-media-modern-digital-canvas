@@ -22,7 +22,13 @@ type Errors = Partial<Record<"name" | "email" | "rating" | "review" | "form", st
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-export function ReviewFormDialog({ open, onOpenChange }: { open: boolean; onOpenChange: (open: boolean) => void }) {
+export function ReviewFormDialog({
+  open,
+  onOpenChange,
+}: {
+  open: boolean;
+  onOpenChange: (open: boolean) => void;
+}) {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [service, setService] = useState("");
@@ -30,7 +36,7 @@ export function ReviewFormDialog({ open, onOpenChange }: { open: boolean; onOpen
   const [review, setReview] = useState("");
   const [honeypot, setHoneypot] = useState("");
   const [errors, setErrors] = useState<Errors>({});
-  const [phase, setPhase] = useState<"form" | "success">("form");
+  const [phase, setPhase] = useState<"form" | "submitting" | "success">("form");
 
   const reset = () => {
     setName("");
@@ -49,7 +55,6 @@ export function ReviewFormDialog({ open, onOpenChange }: { open: boolean; onOpen
       onOpenChange(false);
       return;
     }
-    // Reset form state (but keep any cooldown) each time it reopens.
     reset();
     onOpenChange(true);
   };
@@ -59,8 +64,10 @@ export function ReviewFormDialog({ open, onOpenChange }: { open: boolean; onOpen
     if (!name.trim()) next.name = "Please enter your name.";
     if (rating < 1) next.rating = "Please select a rating.";
     if (!review.trim()) next.review = "Please share a few words about your experience.";
-    else if (review.trim().length < 10) next.review = "Your review should be at least 10 characters.";
-    if (email.trim() && !EMAIL_RE.test(email.trim())) next.email = "Please enter a valid email address.";
+    else if (review.trim().length < 10)
+      next.review = "Your review should be at least 10 characters.";
+    if (email.trim() && !EMAIL_RE.test(email.trim()))
+      next.email = "Please enter a valid email address.";
     const last = lastSubmitAt();
     if (last && Date.now() - last < SUBMIT_COOLDOWN_MS) {
       next.form = "Thanks for sharing! Please wait a moment before submitting again.";
@@ -68,11 +75,10 @@ export function ReviewFormDialog({ open, onOpenChange }: { open: boolean; onOpen
     return next;
   };
 
-  const submit = (e: React.FormEvent) => {
+  const submit = async (e: React.FormEvent) => {
     e.preventDefault();
     setErrors({});
 
-    // Honeypot: silently accept bots without storing anything.
     if (honeypot.trim()) {
       setPhase("success");
       return;
@@ -84,10 +90,15 @@ export function ReviewFormDialog({ open, onOpenChange }: { open: boolean; onOpen
       return;
     }
 
-    const created = submitReview({ name, email, service, rating, review });
-    markSubmitted();
-    setPhase(created ? "success" : "form");
-    if (!created) setErrors({ form: "Something went wrong. Please try again." });
+    setPhase("submitting");
+    const created = await submitReview({ name, email, service, rating, review });
+    if (created) {
+      markSubmitted();
+      setPhase("success");
+    } else {
+      setPhase("form");
+      setErrors({ form: "Something went wrong. Please try again." });
+    }
   };
 
   return (
@@ -98,7 +109,9 @@ export function ReviewFormDialog({ open, onOpenChange }: { open: boolean; onOpen
             <span className="flex h-16 w-16 items-center justify-center rounded-full bg-wine/10">
               <CheckCircle2 className="h-8 w-8 text-wine" />
             </span>
-            <h2 className="mt-6 font-display text-2xl font-bold text-foreground">Thank you for your review!</h2>
+            <h2 className="mt-6 font-display text-2xl font-bold text-foreground">
+              Thank you for your review!
+            </h2>
             <p className="mt-3 max-w-sm text-sm leading-relaxed text-muted-foreground">
               Your review has been submitted and will appear after approval.
             </p>
@@ -122,7 +135,7 @@ export function ReviewFormDialog({ open, onOpenChange }: { open: boolean; onOpen
             </DialogHeader>
 
             <form onSubmit={submit} noValidate className="space-y-5">
-              {/* Honeypot — hidden from humans and screen readers. */}
+              {/* Honeypot */}
               <div className="sr-only absolute left-[-9999px]" aria-hidden="true">
                 <label htmlFor="reviews-company">Company</label>
                 <input
@@ -144,6 +157,7 @@ export function ReviewFormDialog({ open, onOpenChange }: { open: boolean; onOpen
                     onChange={(e) => setName(e.target.value)}
                     placeholder="Your name"
                     maxLength={80}
+                    disabled={phase === "submitting"}
                     aria-invalid={Boolean(errors.name)}
                     aria-describedby={errors.name ? "review-name-error" : undefined}
                     className={inputClass(Boolean(errors.name))}
@@ -159,6 +173,7 @@ export function ReviewFormDialog({ open, onOpenChange }: { open: boolean; onOpen
                     placeholder="Your email"
                     maxLength={120}
                     autoComplete="email"
+                    disabled={phase === "submitting"}
                     aria-invalid={Boolean(errors.email)}
                     aria-describedby={errors.email ? "review-email-error" : undefined}
                     className={inputClass(Boolean(errors.email))}
@@ -171,6 +186,7 @@ export function ReviewFormDialog({ open, onOpenChange }: { open: boolean; onOpen
                   id="review-service"
                   value={service}
                   onChange={(e) => setService(e.target.value)}
+                  disabled={phase === "submitting"}
                   className={cn(inputClass(false), "appearance-none bg-background")}
                 >
                   <option value="">Select a service…</option>
@@ -187,10 +203,18 @@ export function ReviewFormDialog({ open, onOpenChange }: { open: boolean; onOpen
                   Rating <span className="text-wine"> *</span>
                 </span>
                 <div className="mt-2">
-                  <StarRatingInput id="review-rating" value={rating} onChange={setRating} invalid={Boolean(errors.rating)} />
+                  <StarRatingInput
+                    id="review-rating"
+                    value={rating}
+                    onChange={setRating}
+                    invalid={Boolean(errors.rating)}
+                  />
                 </div>
                 {errors.rating && (
-                  <p id="review-rating-error" className="mt-1.5 text-xs font-medium text-destructive">
+                  <p
+                    id="review-rating-error"
+                    className="mt-1.5 text-xs font-medium text-destructive"
+                  >
                     {errors.rating}
                   </p>
                 )}
@@ -204,11 +228,15 @@ export function ReviewFormDialog({ open, onOpenChange }: { open: boolean; onOpen
                   placeholder="Tell me about your experience working with DOJ MEDIA…"
                   rows={4}
                   maxLength={REVIEW_MAX_LENGTH}
+                  disabled={phase === "submitting"}
                   aria-invalid={Boolean(errors.review)}
                   aria-describedby={errors.review ? "review-text-error" : "review-text-hint"}
                   className={cn(inputClass(Boolean(errors.review)), "resize-none")}
                 />
-                <span id="review-text-hint" className="mt-1.5 block text-right text-xs text-muted-foreground">
+                <span
+                  id="review-text-hint"
+                  className="mt-1.5 block text-right text-xs text-muted-foreground"
+                >
                   {review.length}/{REVIEW_MAX_LENGTH}
                 </span>
               </Field>
@@ -221,10 +249,15 @@ export function ReviewFormDialog({ open, onOpenChange }: { open: boolean; onOpen
 
               <button
                 type="submit"
+                disabled={phase === "submitting"}
                 className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-wine px-7 py-3.5 text-xs font-bold uppercase tracking-[0.18em] text-white shadow-lg shadow-wine/25 transition hover:bg-[#961e3c] hover:shadow-xl hover:shadow-wine/40 disabled:cursor-not-allowed disabled:opacity-70 sm:w-auto"
               >
-                <Send size={14} aria-hidden="true" />
-                Submit Review
+                {phase === "submitting" ? (
+                  <Loader2 size={14} aria-hidden="true" className="animate-spin" />
+                ) : (
+                  <Send size={14} aria-hidden="true" />
+                )}
+                {phase === "submitting" ? "Submitting…" : "Submit Review"}
               </button>
             </form>
           </>
@@ -268,7 +301,12 @@ function Field({
       <label htmlFor={htmlFor} className={labelClass(required)}>
         {label}
         {required && <span className="text-wine"> *</span>}
-        {optional && <span className="font-normal normal-case tracking-normal text-muted-foreground/70"> (optional)</span>}
+        {optional && (
+          <span className="font-normal normal-case tracking-normal text-muted-foreground/70">
+            {" "}
+            (optional)
+          </span>
+        )}
       </label>
       {children}
       {error && (
