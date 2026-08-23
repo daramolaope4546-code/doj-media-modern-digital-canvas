@@ -64,10 +64,10 @@ function HomePage() {
       <section className="relative flex min-h-[100svh] flex-col overflow-hidden pt-28 pb-24 sm:pt-32 sm:pb-28 md:justify-center">
         <HeroCinematic />
 
-        {/* Soft white atmospheric fade that consumes the dark edge into the page */}
+        {/* Bottom fade — blends hero dark into page background */}
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute inset-x-0 bottom-0 z-[3] h-[32%] bg-gradient-to-t from-background via-background/30 to-transparent"
+          className="pointer-events-none absolute inset-x-0 bottom-0 z-[3] h-[28%] bg-gradient-to-t from-background via-background/40 to-transparent"
         />
 
         {/* ── Scrolling typography — cinematic ticker strip ───── */}
