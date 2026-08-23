@@ -1,4 +1,5 @@
 import { LogOut, LayoutDashboard, FolderKanban, Star } from "lucide-react";
+import { DojLogo } from "@/components/DojLogo";
 import { cn } from "@/lib/utils";
 
 export type AdminTab = "dashboard" | "projects" | "reviews";
@@ -24,15 +25,11 @@ export function AdminLayout({
     <div className="min-h-screen bg-background">
       {/* Top bar */}
       <div className="sticky top-0 z-40 border-b border-border bg-card/80 backdrop-blur-xl">
-        <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-3 lg:px-10">
-          <div className="flex items-center gap-3">
-            <span className="text-xs font-semibold uppercase tracking-[0.35em] text-wine">
-              Admin
-            </span>
-            <span className="hidden text-sm font-bold text-foreground sm:inline">
-              DOJ MEDIA
-            </span>
-          </div>
+        <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 lg:px-10">
+          <span className="text-xs font-semibold uppercase tracking-[0.35em] text-wine">
+            Admin
+          </span>
+          <DojLogo size={36} showText />
           <button
             type="button"
             onClick={onLogout}

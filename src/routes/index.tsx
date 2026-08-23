@@ -51,48 +51,56 @@ function HomePage() {
   // reveal starts as it lifts. On later visits to "/" we reveal right away.
   const firstLoad = !introAlreadyPlayed();
 
+  // Cinematic sequence timing offsets (seconds).
+  // firstLoad: LogoIntro lifts at ~1200ms, so hero content begins after.
+  // Subsequent visits: everything reveals immediately.
+  const t = (seconds: number) => (firstLoad ? 1.2 + seconds : Math.min(seconds * 0.25, 0.9));
+
   return (
     <>
       <LogoIntro />
 
+      {/* ── Hero: cinematic studio opening ───────────────────── */}
       <section className="relative flex min-h-[100svh] flex-col overflow-hidden pt-28 pb-24 sm:pt-32 sm:pb-28 md:justify-center">
         <HeroCinematic />
 
-        {/* Soft white atmospheric fade that consumes the dark edge into the page.
-            Uses --background so it stays white in light mode and seamless in dark mode. */}
+        {/* Soft white atmospheric fade that consumes the dark edge into the page */}
         <div
           aria-hidden="true"
           className="pointer-events-none absolute inset-x-0 bottom-0 z-[3] h-[32%] bg-gradient-to-t from-background via-background/30 to-transparent"
         />
 
-        {/* Scrolling typography — secondary cinematic line on its own dedicated row.
-            Solid and fully visible; clipped inside its container so the hero never
-            gains a horizontal scrollbar. */}
-        <div
+        {/* ── Scrolling typography — cinematic ticker strip ───── */}
+        <motion.div
+          initial={reduce ? false : { opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: t(5.5), duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
           aria-hidden="true"
-          className="pointer-events-none relative z-[4] w-full select-none overflow-hidden [-webkit-mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)] [mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)]"
+          className="pointer-events-none relative z-[4] w-full select-none overflow-hidden [-webkit-mask-image:linear-gradient(to_right,transparent,black_8%,black_92%,transparent)] [mask-image:linear-gradient(to_right,transparent,black_8%,black_92%,transparent)]"
         >
-          <div className="animate-marquee motion-reduce:animate-none flex w-max items-center whitespace-nowrap font-display font-bold uppercase leading-none text-white">
+          <div className="animate-marquee motion-reduce:animate-none flex w-max items-center whitespace-nowrap font-display font-bold uppercase leading-none text-white/90">
             {[0, 1].map((copy) => (
-              <span key={copy} className="flex items-center gap-[1.25em] pr-[1.25em] text-[clamp(2.75rem,9vw,7.5rem)] tracking-[0.02em] sm:gap-[1.75em] sm:pr-[1.75em] md:gap-[2.5em] md:pr-[2.5em]">
-                <span>CREATE</span>
-                <span>DESIGN</span>
-                <span>STREAM</span>
-                <span>INSPIRE</span>
+              <span key={copy} className="flex items-center gap-[1.5em] pr-[1.5em] text-[clamp(2.75rem,9vw,7.5rem)] tracking-[0.03em] sm:gap-[2em] sm:pr-[2em] md:gap-[2.8em] md:pr-[2.8em]">
+                <span className="text-white/95">CREATE</span>
+                <span className="text-white/70">DESIGN</span>
+                <span className="text-white/95">STREAM</span>
+                <span className="italic text-[#f2c6cd]">INSPIRE</span>
               </span>
             ))}
           </div>
-        </div>
+        </motion.div>
 
-        {/* Desktop: editorial two-column composition — content left, portrait right.
-            Mobile keeps the image and name first, then the editorial block. */}
+        {/* ── Desktop: editorial two-column composition ──────── */}
         <div className="relative z-[4] mx-auto mt-10 flex w-full max-w-7xl flex-col px-6 md:mt-16 md:grid md:grid-cols-[1fr_1fr] md:items-center md:gap-12 lg:mt-24 lg:grid-cols-[0.95fr_1.05fr] lg:gap-20 lg:px-10">
-          {/* Left — branding, headline, introduction, CTAs */}
+
+          {/* Left — brand row, headline, intro, disciplines, CTAs, socials */}
           <div className="order-2 md:order-1">
+
+            {/* Brand row — 0–2s: studio awakens, 4s: identity appears */}
             <motion.div
-              initial={reduce ? false : { opacity: 0, y: 18 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: firstLoad ? 1.35 : 0.15, duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+              initial={reduce ? false : { opacity: 0, y: 18, filter: "blur(6px)" }}
+              animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+              transition={{ delay: t(2.8), duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
               className="flex flex-wrap items-center justify-center gap-x-3 gap-y-2 md:justify-start"
             >
               <DojLogo size={20} className="text-white" />
@@ -100,42 +108,47 @@ function HomePage() {
               <span className="hidden h-px w-12 bg-white/25 sm:block" />
               <span className="text-[11px] font-medium uppercase tracking-[0.3em] text-white/55">Creative Digital Media Studio</span>
             </motion.div>
+
+            {/* H1 — cinematic title reveal */}
             <h1 className="mt-6 text-center font-display text-[clamp(2.5rem,5.5vw,4.5rem)] font-bold leading-[1.06] tracking-tight text-white [text-wrap:balance] md:mt-8 md:text-left">
               {"CREATE. DESIGN. STREAM. INSPIRE.".split(" ").map((word, i) => (
                 <motion.span
                   key={word}
-                  initial={reduce ? false : { opacity: 0, y: 26 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: firstLoad ? 1.7 + i * 0.12 : 0.2 + i * 0.08, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-                  className={i === 3 ? "italic text-[#f2c6cd]" : "mr-[0.28em] inline-block"}
+                  initial={reduce ? false : { opacity: 0, y: 30, filter: "blur(8px)" }}
+                  animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+                  transition={{ delay: t(3.4 + i * 0.2), duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+                  className={i === 3 ? "mr-[0.28em] inline-block italic text-[#f2c6cd]" : "mr-[0.28em] inline-block"}
                 >
                   {word}
                 </motion.span>
               ))}
             </h1>
 
+            {/* Intro paragraph */}
             <motion.p
-              initial={reduce ? false : { opacity: 0, y: 20 }}
+              initial={reduce ? false : { opacity: 0, y: 22 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: firstLoad ? 1.8 : 0.4, duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
+              transition={{ delay: t(4.6), duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
               className="mx-auto mt-7 max-w-xl text-center text-lg leading-relaxed text-white/75 sm:text-xl md:mx-0 md:text-left"
             >
               Creative media solutions crafted through design, technology, motion and storytelling.
             </motion.p>
 
+            {/* Discipline strip */}
             <motion.p
               initial={reduce ? false : { opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: firstLoad ? 1.95 : 0.5, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+              transition={{ delay: t(5.0), duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
               className="mt-5 text-center text-xs font-semibold uppercase tracking-[0.35em] text-white/55 sm:text-sm md:text-left"
             >
               Graphics • Web • Video • Motion • Live Streaming
             </motion.p>
 
+            {/* CTAs */}
             <motion.div
-              initial={reduce ? false : { opacity: 0, y: 20 }}
+              initial={reduce ? false : { opacity: 0, y: 22 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: firstLoad ? 2.1 : 0.6, duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
+              transition={{ delay: t(5.4), duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
               className="mt-10 flex flex-wrap items-center justify-center gap-4 md:justify-start"
             >
               <Link
@@ -153,11 +166,12 @@ function HomePage() {
               </Link>
             </motion.div>
 
+            {/* Socials */}
             {socials.length > 0 && (
               <motion.div
                 initial={reduce ? false : { opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: firstLoad ? 2.25 : 0.7, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+                transition={{ delay: t(5.8), duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
                 className="mt-9 flex flex-wrap items-center justify-center gap-3 md:justify-start"
               >
                 {socials.map(({ label, href, Icon }) => (
@@ -176,15 +190,15 @@ function HomePage() {
             )}
           </div>
 
-          {/* Right — large profile image, cinematically integrated. One image
-              element always rendered; the name caption sits below it. */}
+          {/* Right — portrait, cinematically revealed */}
           <motion.div
-            initial={reduce ? false : { opacity: 0, scale: 0.97, y: 20 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            transition={{ delay: firstLoad ? 1.6 : 0.3, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+            initial={reduce ? false : { opacity: 0, scale: 0.95, y: 30, filter: "blur(4px)" }}
+            animate={{ opacity: 1, scale: 1, y: 0, filter: "blur(0px)" }}
+            transition={{ delay: t(2.5), duration: 1.0, ease: [0.22, 1, 0.36, 1] }}
             className="order-1 md:order-2 md:justify-self-end"
           >
             <div className="relative mx-auto w-full max-w-[16rem] sm:max-w-[18rem] md:mx-0 md:max-w-[20rem] lg:max-w-[24rem] xl:max-w-[27rem]">
+              {/* Wine glow behind portrait */}
               <div className="pointer-events-none absolute -inset-10 rounded-[3rem] bg-[radial-gradient(circle_at_center,rgba(160,30,60,0.22),transparent_62%)] blur-2xl" />
               <img
                 src={portrait}
@@ -200,10 +214,11 @@ function HomePage() {
           </motion.div>
         </div>
 
+        {/* Scroll indicator */}
         <motion.div
           initial={reduce ? false : { opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: firstLoad ? 2.4 : 0.85, duration: 0.7 }}
+          transition={{ delay: t(6.2), duration: 0.8 }}
           aria-hidden="true"
           className="pointer-events-none absolute inset-x-0 bottom-7 z-10 flex flex-col items-center gap-3"
         >
