@@ -83,37 +83,23 @@ function PortfolioPage() {
   const [projects, setProjects] = useState<DisplayProject[]>([]);
   const [loading, setLoading] = useState(true);
 
-    useEffect(() => {
-    const staticDisplayProjects = staticProjects.map((p, i) =>
-      staticToDisplay(p, i),
-    );
-
+  useEffect(() => {
     if (!isSupabaseConfigured()) {
-      setProjects(staticDisplayProjects);
+      setProjects(staticProjects.map((p, i) => staticToDisplay(p, i)));
       setLoading(false);
       return;
     }
-
     getPublicProjects()
       .then((rows) => {
-        const supabaseProjects = rows.map(supabaseToDisplay);
-
-        // Keep all existing static portfolio projects and add
-        // published Admin/Supabase projects.
-        const existingTitles = new Set(
-          staticDisplayProjects.map((p) => p.title.trim().toLowerCase()),
-        );
-
-        const newSupabaseProjects = supabaseProjects.filter(
-          (p) => !existingTitles.has(p.title.trim().toLowerCase()),
-        );
-
-        setProjects([...staticDisplayProjects, ...newSupabaseProjects]);
+        if (rows.length > 0) {
+          setProjects(rows.map(supabaseToDisplay));
+        } else {
+          setProjects(staticProjects.map((p, i) => staticToDisplay(p, i)));
+        }
         setLoading(false);
       })
       .catch(() => {
-        // If Supabase fails, keep the original portfolio projects.
-        setProjects(staticDisplayProjects);
+        setProjects(staticProjects.map((p, i) => staticToDisplay(p, i)));
         setLoading(false);
       });
   }, []);

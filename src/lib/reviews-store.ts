@@ -157,20 +157,30 @@ export async function submitReview(input: {
   const qb = sb.from("reviews") as any;
   try {
     const { data, error } = await qb
-      .insert({
-        name,
-        email: email ?? null,
-        service: service ?? null,
-        rating: input.rating,
-        review,
-      })
-      .select()
-      .single();
-    if (error || !data) return null;
+  .insert({
+    name,
+    email: email ?? null,
+    service: service ?? null,
+    rating: input.rating,
+    review,
+  })
+  .select()
+  .single();
+
+if (error) {
+  console.error("REVIEW SUBMISSION ERROR:", error);
+  return null;
+}
+
+if (!data) {
+  console.error("REVIEW SUBMISSION ERROR: No data returned from Supabase");
+  return null;
+}
     return rowToReview(data as ReviewRow);
-  } catch {
-    return null;
-  }
+  } catch (err) {
+  console.error("REVIEW SUBMISSION EXCEPTION:", err);
+  return null;
+}
 }
 
 export async function getAllReviews(): Promise<Review[]> {
